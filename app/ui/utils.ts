@@ -6,8 +6,8 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function nameInitials(name: string) {
-  return name
-    .split(" ")
-    .map((word) => word[0])
-    .join("");
+  const initials = name.split(" ").map((word) => word[0]);
+  return initials.length === 1
+    ? initials[0]
+    : `${initials[0]}${initials[initials.length - 1]}`;
 }
