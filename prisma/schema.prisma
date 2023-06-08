@@ -1,0 +1,186 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id          String  @id @default(cuid())
+  email       String  @unique
+  name        String?
+  avatarImage String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  password Password?
+  posts    Post[]
+
+  role   String  @default("staff")
+  medias Media[]
+}
+
+model Otp {
+  id String @id @default(cuid())
+
+  code     String  @unique
+  active   Boolean @default(false)
+  attempts Int     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Customer {
+  id               String        @id @default(cuid())
+  email            String        @unique
+  name             String?
+  note             String?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  avatarImage      String?
+  emailCount       Int           @default(0)
+  emailOpenedCount Int           @default(0)
+  emailOpenRate    Int           @default(0)
+  status           String        @default("active")
+  subscribed       Boolean       @default(false)
+  comped           Boolean       @default(false)
+  lastSeenAt       DateTime?
+  subscription     Subscription?
+  stripeCustomerId String?       @unique
+  tierId           String?
+}
+
+// ...
+// Subscription Related Models.
+// ...
+
+// Plans are used to describe and group our Stripe Products.
+model Plan {
+  id            String         @id @unique
+  name          String
+  description   String?
+  active        Boolean?       @default(true)
+  limits        PlanLimit?
+  prices        Price[]
+  subscriptions Subscription[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Plan limits are used to describe the limits available to a plan.
+model PlanLimit {
+  id     String @id @default(cuid())
+  plan   Plan   @relation(fields: [planId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  planId String @unique
+
+  // Here you can define your own limits.
+  // For example, you could have a limit on the number of items a user can create.
+  maxItems Int @default(0)
+}
+
+// Prices are used to identify our plan prices.
+model Price {
+  id            String         @id @unique // Managed by Stripe - (Price ID)
+  plan          Plan           @relation(fields: [planId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  planId        String
+  amount        Int
+  currency      String
+  interval      String
+  active        Boolean        @default(true)
+  subscriptions Subscription[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Subscription {
+  id                 String   @id @unique // Managed by Stripe - (Subscription ID)
+  customer           Customer @relation(fields: [customerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  customerId         String   @unique
+  plan               Plan     @relation(fields: [planId], references: [id])
+  planId             String
+  price              Price    @relation(fields: [priceId], references: [id])
+  priceId            String
+  interval           String
+  status             String
+  currentPeriodStart Int
+  currentPeriodEnd   Int
+  cancelAtPeriodEnd  Boolean  @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Password {
+  hash   String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId String @unique
+}
+
+model Tag {
+  id       String  @id @default(cuid())
+  name     String
+  slug     String  @unique
+  posts    Post[]
+  courseId String?
+}
+
+model Post {
+  id              String    @id @default(cuid())
+  slug            String    @unique
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  title           String
+  content         String?
+  plaintext       String?
+  scheduled       Boolean   @default(false)
+  scheduledAt     DateTime?
+  published       Boolean   @default(false)
+  publishedAt     DateTime?
+  excerpt         String?
+  author          User      @relation(fields: [authorId], references: [id])
+  authorId        String
+  tags            Tag[]
+  featured        Boolean   @default(false)
+  page            Boolean   @default(false)
+  visibility      String    @default("public")
+  privateLink     String?
+  featureImage    String?
+  featureImageAlt String?
+  canonicalUrl    String?
+  metaTitle       String?
+  metaDesc        String?
+  ogTitle         String?
+  ogDesc          String?
+  ogImage         String?
+  twitterTitle    String?
+  twitterDesc     String?
+  twitterImage    String?
+}
+
+model Media {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  url       String   @unique
+  type      String
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+  filename  String
+  key       String?
+  storage   String?
+  bucket    String?
+}
+
+model Settings {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  key       String   @unique
+  value     String
+}
