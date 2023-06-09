@@ -46,3 +46,11 @@ export async function updateCustomerById(
     data: { ...customer },
   });
 }
+
+export async function getAllCustomers() {
+  return prisma.customer.findMany({
+    include: {
+      subscription: true,
+    },
+  });
+}

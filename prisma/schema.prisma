@@ -51,7 +51,6 @@ model Customer {
   lastSeenAt       DateTime?
   subscription     Subscription?
   stripeCustomerId String?       @unique
-  tierId           String?
 }
 
 // ...

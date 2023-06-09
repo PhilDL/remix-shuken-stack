@@ -12,7 +12,7 @@ export const PageContainer = ({
   return (
     <div
       className={cn(
-        "mt-6 h-full bg-white px-6 text-slate-900 dark:bg-slate-950 dark:text-slate-50 lg:px-8",
+        "mt-4 h-full bg-white px-6 text-slate-900 dark:bg-slate-950 dark:text-slate-50 lg:px-8 flex flex-col gap-4",
         className
       )}
       {...rest}

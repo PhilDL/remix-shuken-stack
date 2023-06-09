@@ -23,8 +23,14 @@ import {
 const navigation = [
   {
     name: "Dashboard",
-    href: "/admin",
+    href: "/admin/dashboard",
     LucideIcon: Home,
+    current: false,
+  },
+  {
+    name: "Customers",
+    href: "/admin/customers",
+    LucideIcon: Users,
     current: false,
   },
   {
@@ -35,12 +41,11 @@ const navigation = [
   },
   {
     name: "Misc.",
-    href: "/",
+    href: "/admin/misc",
     LucideIcon: Book,
     current: false,
     children: [{ name: "CSV Uploads", href: "/admin/csv-upload" }],
   },
-  { name: "Users", href: "/admin/users", LucideIcon: Users, current: false },
   {
     name: "Medias",
     href: "/admin/medias",
