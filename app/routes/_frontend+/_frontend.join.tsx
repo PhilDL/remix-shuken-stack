@@ -93,9 +93,9 @@ export const meta: V2_MetaFunction = () => {
 export default function LoginPage() {
   let { magicLinkSent, magicLinkEmail } = useLoaderData<typeof loader>();
   const navigation = useNavigation();
-  const { settings } = useMatchesData("routes/_blog") as UwrapJSONLoaderData<
-    typeof rootBlogLoader
-  >;
+  const { settings } = useMatchesData(
+    "routes/_frontend+/_frontend"
+  ) as UwrapJSONLoaderData<typeof rootBlogLoader>;
 
   return (
     <div className="flex min-h-[55%] flex-col justify-center">
@@ -202,5 +202,3 @@ export default function LoginPage() {
     </div>
   );
 }
-
-// http://localhost:3000/magic?token=U2FsdGVkX1%2B8hzKiMD4xuVdjjchulBhrTe%2BhihJ2jeAY%2BaOJf6gbUEV%2BWzpwOhLTb9Pfcx6NCEDbfsVO1kf7onhu6cxTfhL4QMazZo4CaQw%3D

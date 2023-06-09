@@ -23,7 +23,7 @@ export default function Index() {
   return (
     <main className="relative flex min-h-screen flex-col gap-6">
       <Hero
-        title={`Sign up to ${site.title}!`}
+        title={`${site.title}!`}
         description={site.description}
         showForm={true}
       />

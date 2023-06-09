@@ -1,7 +1,6 @@
 import crypto from "crypto";
 import path from "path";
 import { fileURLToPath } from "url";
-import * as remixBuild from "../build/index.js";
 import { createRequestHandler } from "@remix-run/express";
 import { broadcastDevReady } from "@remix-run/node";
 import address from "address";
@@ -12,6 +11,7 @@ import compression from "compression";
 import express from "express";
 import getPort, { portNumbers } from "get-port";
 import morgan from "morgan";
+import * as remixBuild from "../build/index.js";
 const MODE = process.env.NODE_ENV;
 const BUILD_PATH = "../build/index.js";
 const build = remixBuild;

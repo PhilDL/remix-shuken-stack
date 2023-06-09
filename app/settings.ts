@@ -24,9 +24,9 @@ export type SiteSettings = {
 };
 
 export const site: SiteSettings = {
-  title: "My App",
-  description: "My App Description",
-  logo: "",
+  title: "Remix Shuken Stack",
+  description: "Batteries included starter for Remix",
+  logo: "/logo.png",
   navigation: [
     {
       label: "Home",
