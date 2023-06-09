@@ -182,7 +182,7 @@ export default function AdminLayout() {
                       />
                       <Bar
                         dataKey="total"
-                        fill="#a51dfa"
+                        fill="#14b1a7"
                         radius={[4, 4, 0, 0]}
                         label={{ fill: "#fff", fontSize: 12 }}
                       />

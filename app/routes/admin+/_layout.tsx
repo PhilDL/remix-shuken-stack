@@ -23,7 +23,7 @@ import {
 const navigation = [
   {
     name: "Dashboard",
-    href: "/admin/dashboard",
+    href: "/admin",
     LucideIcon: Home,
     current: false,
   },
