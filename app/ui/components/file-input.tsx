@@ -109,7 +109,7 @@ export const FileInput = React.forwardRef<FileInputHandle, FileInputProps>(
       }
     };
 
-    const onDeleteImage = (
+    const onDeleteFile = (
       e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => {
       e.preventDefault();
@@ -198,10 +198,7 @@ export const FileInput = React.forwardRef<FileInputHandle, FileInputProps>(
         </ContextMenuTrigger>
         <ContextMenuContent>
           <ContextMenuItem asChild>
-            <button
-              className="flex w-full items-center"
-              onClick={onDeleteImage}
-            >
+            <button className="flex w-full items-center" onClick={onDeleteFile}>
               <Trash className="mr-2 h-4 w-4" /> Delete
             </button>
           </ContextMenuItem>
