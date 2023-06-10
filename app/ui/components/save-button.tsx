@@ -1,6 +1,6 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { Loader, Save } from "lucide-react";
+import { CheckCheck, Loader, Save } from "lucide-react";
 
 import { cn } from "~/ui/utils.ts";
 import { buttonVariants } from "./button.tsx";
@@ -29,24 +29,42 @@ const SaveButton = React.forwardRef<HTMLButtonElement, SaveButtonProps>(
     { className, variant, size, children, navigationState, disabled, ...props },
     ref
   ) => {
+    const [buttonIcon, setButtonIcon] = React.useState<React.ReactNode>(
+      <Save className={cn(buttonIconVariants({ size }))} />
+    );
+    const [saved, setSaved] = React.useState(false);
+
+    React.useEffect(() => {
+      if (navigationState === "submitting") {
+        setButtonIcon(<Loader className={cn(buttonIconVariants({ size }))} />);
+        setSaved(true);
+      } else {
+        if (saved) {
+          setButtonIcon(
+            <CheckCheck
+              className={cn(buttonIconVariants({ size }), "animate-pulse")}
+            />
+          );
+          setTimeout(() => {
+            setSaved(false);
+            setButtonIcon(
+              <Save className={cn(buttonIconVariants({ size }))} />
+            );
+          }, 1000);
+        }
+      }
+    }, [navigationState, saved, size]);
     return (
       <button
         className={cn(
           buttonVariants({ variant, size, className }),
-          "flex flex-row items-center justify-center"
+          "flex flex-row items-center justify-center transition-all"
         )}
         ref={ref}
         disabled={disabled || navigationState === "submitting"}
         {...props}
       >
-        {navigationState === "submitting" ? (
-          <Loader
-            className={cn(buttonIconVariants({ size }), "animate-spin")}
-          />
-        ) : (
-          <Save className={cn(buttonIconVariants({ size }))} />
-        )}{" "}
-        {children}
+        {buttonIcon} {children}
       </button>
     );
   }
