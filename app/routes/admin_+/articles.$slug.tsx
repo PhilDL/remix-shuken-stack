@@ -1,5 +1,4 @@
-import { Fragment, useRef, useState } from "react";
-import { Transition } from "@headlessui/react";
+import { useRef, useState } from "react";
 import { Editor, type Monaco } from "@monaco-editor/react";
 import {
   json,
@@ -7,13 +6,8 @@ import {
   type ActionArgs,
   type LoaderArgs,
 } from "@remix-run/node";
-import { Form, NavLink, useLoaderData, useNavigation } from "@remix-run/react";
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ColumnsIcon,
-  TowerControl,
-} from "lucide-react";
+import { Form, useLoaderData, useNavigation } from "@remix-run/react";
+import { ChevronLeftIcon, ColumnsIcon } from "lucide-react";
 import type { editor } from "monaco-editor";
 import invariant from "tiny-invariant";
 
