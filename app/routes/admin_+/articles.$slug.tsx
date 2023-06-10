@@ -38,7 +38,6 @@ import {
 import { auth } from "~/storage/admin-auth.server.ts";
 import { getPostBySlug, updatePost } from "~/models/post.server.ts";
 import { parseMarkdown } from "~/services/markdown.server.ts";
-import medias from "../admin+/medias.tsx";
 
 export async function loader({ request, params }: LoaderArgs) {
   const user = await auth.isAuthenticated(request, {
