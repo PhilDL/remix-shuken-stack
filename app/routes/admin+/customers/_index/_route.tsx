@@ -1,9 +1,23 @@
-import { json, type LoaderArgs } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import type { ActionArgs } from "@remix-run/node";
+import { json, redirect, type LoaderArgs } from "@remix-run/node";
+import { useFetcher, useLoaderData } from "@remix-run/react";
+import { inputFromForm } from "domain-functions";
 import { User2Icon } from "lucide-react";
 
 import { PageContainer } from "~/ui/components/admin/page-container.tsx";
 import { PageHeader } from "~/ui/components/admin/page-header.tsx";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "~/ui/components/alert-dialog.tsx";
+import { Button } from "~/ui/components/button.tsx";
 import { LinkButton } from "~/ui/components/link-button.tsx";
 import { NavLinkButton } from "~/ui/components/navlink-button.tsx";
 import {
@@ -16,7 +30,9 @@ import {
   TableRow,
 } from "~/ui/components/table.tsx";
 import { auth } from "~/storage/admin-auth.server.ts";
+import { wrapDomainErrorJSON } from "~/storage/flash-message.server.ts";
 import { getAllCustomers } from "~/models/customer.server.ts";
+import { deleteCustomerAction } from "../customer-domain.server.ts";
 
 export async function loader({ request }: LoaderArgs) {
   await auth.isAuthenticated(request, {
@@ -26,8 +42,22 @@ export async function loader({ request }: LoaderArgs) {
   return json({ customers });
 }
 
+export async function action({ request }: ActionArgs) {
+  const deleteOperation = await deleteCustomerAction(
+    await inputFromForm(request),
+    await auth.isAuthenticated(request, {
+      failureRedirect: "/admin/login",
+    })
+  );
+  if (!deleteOperation.success) {
+    return wrapDomainErrorJSON(deleteOperation, request);
+  }
+  return redirect("/admin/customers");
+}
+
 export default function CustomersIndex() {
   const { customers } = useLoaderData<typeof loader>();
+  const fetcher = useFetcher();
   return (
     <PageContainer>
       <PageHeader
@@ -78,6 +108,45 @@ export default function CustomersIndex() {
                       >
                         Edit
                       </NavLinkButton>
+                      <AlertDialog>
+                        <AlertDialogTrigger className="text-red-700 dark:text-red-300">
+                          Delete
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>
+                              Are you sure absolutely sure?
+                            </AlertDialogTitle>
+                            <AlertDialogDescription>
+                              This action cannot be undone. This will
+                              permanently delete this customer and all related
+                              subscriptions.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+
+                            <AlertDialogAction asChild>
+                              <Button
+                                type="submit"
+                                variant="destructive"
+                                size="sm"
+                                onClick={() =>
+                                  fetcher.submit(
+                                    {
+                                      action: "delete",
+                                      customerId: customer.id,
+                                    },
+                                    { method: "post" }
+                                  )
+                                }
+                              >
+                                Delete
+                              </Button>
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
                     </TableCell>
                   </TableRow>
                 ))}

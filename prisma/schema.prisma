@@ -37,7 +37,7 @@ model Otp {
 model Customer {
   id               String        @id @default(cuid())
   email            String        @unique
-  name             String?
+  name             String
   note             String?
   createdAt        DateTime      @default(now())
   updatedAt        DateTime      @updatedAt
