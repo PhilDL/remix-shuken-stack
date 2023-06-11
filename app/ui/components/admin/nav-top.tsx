@@ -129,7 +129,7 @@ export const NavTop = ({ userMenu, user }: NavTopProps) => {
               {user ? (
                 <DropdownMenuGroup>
                   <DropdownMenuItem asChild>
-                    <Link to="/account">
+                    <Link to="/admin/settings/profile">
                       <UserIcon className="mr-2 h-4 w-4" />
                       <span>Profile</span>
                     </Link>
@@ -184,7 +184,7 @@ export const NavTop = ({ userMenu, user }: NavTopProps) => {
                 <>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
-                    <Link to="/logout">
+                    <Link to="/admin/logout">
                       <LogOut className="mr-2 h-4 w-4" />
                       <span>Log out</span>
                     </Link>

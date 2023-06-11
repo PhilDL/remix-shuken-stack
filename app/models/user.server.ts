@@ -76,3 +76,32 @@ export async function verifyLogin(
 
   return userWithoutPassword;
 }
+
+export async function verifyLoginForUserId(
+  userId: User["id"],
+  password: Password["hash"]
+) {
+  const userWithPassword = await prisma.user.findUnique({
+    where: { id: userId },
+    include: {
+      password: true,
+    },
+  });
+
+  if (!userWithPassword || !userWithPassword.password) {
+    return null;
+  }
+
+  const isValid = await bcrypt.compare(
+    password,
+    userWithPassword.password.hash
+  );
+
+  if (!isValid) {
+    return null;
+  }
+
+  const { password: _password, ...userWithoutPassword } = userWithPassword;
+
+  return userWithoutPassword;
+}
