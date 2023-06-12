@@ -50,13 +50,14 @@ export async function action({ request, params }: ActionArgs) {
   const flash = await addFlashMessage(request, {
     type: "success",
     title: "Saved",
-    message: "Custmer saved successfully",
+    message: "Customer saved successfully",
   });
   return redirectWithFlashMessage(
     `/admin/customers/${updateOperation.data.id}`,
     flash
   );
 }
+
 export default function EditCustomer() {
   const { customer } = useLoaderData<typeof loader>();
   const data = useActionData<typeof action>();

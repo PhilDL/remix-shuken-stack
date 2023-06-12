@@ -2,6 +2,8 @@
 CREATE TABLE "User" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "email" TEXT NOT NULL,
+    "name" TEXT,
+    "avatarImage" TEXT,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL,
     "role" TEXT NOT NULL DEFAULT 'staff'
@@ -21,7 +23,7 @@ CREATE TABLE "Otp" (
 CREATE TABLE "Customer" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "email" TEXT NOT NULL,
-    "name" TEXT,
+    "name" TEXT NOT NULL,
     "note" TEXT,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL,
@@ -33,8 +35,7 @@ CREATE TABLE "Customer" (
     "subscribed" BOOLEAN NOT NULL DEFAULT false,
     "comped" BOOLEAN NOT NULL DEFAULT false,
     "lastSeenAt" DATETIME,
-    "stripeCustomerId" TEXT,
-    "tierId" TEXT
+    "stripeCustomerId" TEXT
 );
 
 -- CreateTable
@@ -147,6 +148,40 @@ CREATE TABLE "Media" (
     "storage" TEXT,
     "bucket" TEXT,
     CONSTRAINT "Media_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "Settings" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" DATETIME NOT NULL,
+    "title" TEXT NOT NULL,
+    "url" TEXT,
+    "description" TEXT,
+    "logo" TEXT,
+    "facebook" TEXT,
+    "twitter" TEXT,
+    "instagram" TEXT,
+    "youtube" TEXT,
+    "linkedin" TEXT,
+    "email" TEXT,
+    "phone" TEXT,
+    "street" TEXT,
+    "street2" TEXT,
+    "city" TEXT,
+    "state" TEXT,
+    "zip" TEXT,
+    "country" TEXT,
+    "googleAnalytics" TEXT,
+    "googleApiKey" TEXT,
+    "metaDescription" TEXT,
+    "metaTitle" TEXT,
+    "ogTitle" TEXT,
+    "ogDescription" TEXT,
+    "ogImage" TEXT,
+    "twitterTitle" TEXT,
+    "twitterDescription" TEXT,
+    "twitterImage" TEXT
 );
 
 -- CreateTable

@@ -23,7 +23,12 @@ export type LoaderWithMedias = ({
 }: DataFunctionArgs) => Promise<
   TypedResponse<{ medias: { id: string; url: string }[] }>
 >;
-export const useMediaLibrary = <T extends LoaderWithMedias>(formId: string) => {
+export const useMediaLibrary = <T extends LoaderWithMedias>(
+  formId: string,
+  options?: {
+    fieldName: string;
+  }
+) => {
   const { medias } = useLoaderData<T>();
   const [mediaLibraryOpen, setMediaLibraryOpen] = useState(false);
   const transition = useNavigation();
@@ -50,7 +55,7 @@ export const useMediaLibrary = <T extends LoaderWithMedias>(formId: string) => {
                   <div key={media.id} className="flex items-center">
                     <input
                       type="radio"
-                      name="imageFromLibrary"
+                      name={options?.fieldName ?? "imageFromLibrary"}
                       value={media.url}
                       id={media.id}
                       form={formId}

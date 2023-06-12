@@ -5,29 +5,32 @@ import { Hero } from "~/ui/components/frontend/hero.tsx";
 import { SiteDescription } from "~/ui/components/frontend/site-description.tsx";
 import { auth } from "~/storage/auth.server.tsx";
 import { prisma } from "~/storage/db.server.ts";
-import { site } from "~/settings.ts";
+import { getSiteSettings } from "~/models/settings.server.ts";
 
 export async function loader({ request }: LoaderArgs) {
-  const user = await auth.isAuthenticated(request);
-  const posts = await prisma.post.findMany();
+  const [user, posts, settings] = await Promise.all([
+    auth.isAuthenticated(request),
+    prisma.post.findMany(),
+    getSiteSettings(),
+  ]);
 
   return json({
     user,
-    site,
+    settings,
     posts,
   });
 }
 
 export default function Index() {
-  const { site } = useLoaderData<typeof loader>();
+  const { settings } = useLoaderData<typeof loader>();
   return (
     <main className="relative flex min-h-screen flex-col gap-6">
       <Hero
-        title={`${site.title}!`}
-        description={site.description}
+        title={`${settings.title}!`}
+        description={settings.description || ""}
         showForm={true}
       />
-      <SiteDescription settings={site} titleElement="div" />
+      <SiteDescription settings={settings} titleElement="div" />
     </main>
   );
 }

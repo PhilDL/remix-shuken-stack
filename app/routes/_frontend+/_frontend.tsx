@@ -18,7 +18,7 @@ import {
   type ToastMessage,
 } from "~/storage/flash-message.server.ts";
 import { sessionStorage } from "~/storage/session.server.ts";
-import { site } from "~/settings.ts";
+import { getSiteSettings } from "~/models/settings.server.ts";
 
 export const meta: V2_MetaFunction<typeof loader> = ({ data }) => {
   if (!data) {
@@ -37,8 +37,8 @@ export const meta: V2_MetaFunction<typeof loader> = ({ data }) => {
       },
     },
     url: settings.url || "",
-    mainEntityOfPage: settings.url,
-    description: settings.description,
+    mainEntityOfPage: settings.url || "",
+    description: settings.description || "",
   };
   return [
     { charset: "utf-8" },
@@ -96,8 +96,10 @@ export const meta: V2_MetaFunction<typeof loader> = ({ data }) => {
 };
 
 export async function loader({ request }: LoaderArgs) {
-  const settings = site;
-  let user = await auth.isAuthenticated(request);
+  const [user, settings] = await Promise.all([
+    auth.isAuthenticated(request),
+    getSiteSettings(),
+  ]);
   const toastSession = await getFlashMessageSession(
     request.headers.get("cookie")
   );

@@ -41,7 +41,7 @@ import { Theme, useTheme } from "~/ui/components/theme-provider.tsx";
 import ThemeToggleIcon from "~/ui/components/theme-toggle-icon.tsx";
 import { ThemeToggle } from "~/ui/components/theme-toggle.tsx";
 import { nameInitials } from "~/ui/utils.ts";
-import { site } from "~/settings.ts";
+import { app } from "~/settings.ts";
 
 const themes = [Theme.LIGHT, Theme.DARK];
 
@@ -78,8 +78,8 @@ export const NavTop = ({ userMenu, user }: NavTopProps) => {
         </SheetTrigger>
         <SheetContent position="right" size={"xl"}>
           <SheetHeader>
-            <SheetTitle>{site.title}</SheetTitle>
-            <SheetDescription>{site.description}</SheetDescription>
+            <SheetTitle>{app.title}</SheetTitle>
+            <SheetDescription>{app.description}</SheetDescription>
           </SheetHeader>
           <ScrollArea className="h-[80%] w-full">
             <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">

@@ -3,8 +3,6 @@ import { json, type LoaderArgs } from "@remix-run/node";
 import { Form, useActionData, useNavigation } from "@remix-run/react";
 import { errorMessagesForSchema, inputFromForm } from "domain-functions";
 
-import { PageContainer } from "~/ui/components/admin/page-container.tsx";
-import { PageHeader } from "~/ui/components/admin/page-header.tsx";
 import {
   Card,
   CardContent,

@@ -1,10 +1,14 @@
 import { Link } from "@remix-run/react";
 
 import { SocialLinks } from "~/ui/components/frontend/social-links.tsx";
-import type { SiteSettings } from "~/settings.ts";
+import { navigation } from "~/settings.ts";
 
 export type FooterProps = {
-  settings: SiteSettings;
+  settings: {
+    title: string;
+    description?: string | null;
+    logo?: string | null;
+  };
 };
 
 export const Footer = ({ settings }: FooterProps) => {
@@ -31,7 +35,7 @@ export const Footer = ({ settings }: FooterProps) => {
             <h3 className="font-bold text-white">Navigation</h3>
             <div className="flex">
               <ul className="flex-1 text-slate-400">
-                {settings.navigation.map((item) => (
+                {navigation.main.map((item) => (
                   <li key={item.url}>
                     <Link to={item.url} className="hover:text-cornflower-500">
                       {item.label}
@@ -40,7 +44,7 @@ export const Footer = ({ settings }: FooterProps) => {
                 ))}
               </ul>
               <ul className="flex-1 text-slate-400">
-                {settings.secondaryNavigation.map((item) => (
+                {navigation.secondary.map((item) => (
                   <li key={item.url}>
                     <Link to={item.url} className="hover:text-cornflower-500">
                       {item.label}

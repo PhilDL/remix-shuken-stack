@@ -27,10 +27,17 @@ async function seed() {
         role: "admin",
       },
     });
-    console.log(`Database has been seeded. 🌱`);
-  } else {
-    console.log("User already exists. 🌱");
   }
+  const settings = await prisma.settings.findFirst();
+  if (!settings) {
+    await prisma.settings.create({
+      data: {
+        title: "Shuken App",
+      },
+    });
+    console.log(`Creating settings table. 🌱`);
+  }
+  console.log(`Database has been seeded. 🌱`);
 }
 
 seed()

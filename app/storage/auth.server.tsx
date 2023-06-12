@@ -5,11 +5,11 @@ import { OTPStrategy } from "remix-auth-otp";
 
 import { prisma } from "~/storage/db.server.ts";
 import { sessionStorage } from "~/storage/session.server.ts";
+import { getSiteSettings } from "~/models/settings.server.ts";
 import { sendEmail } from "~/services/email.server.tsx";
 import { SignInEmail } from "~/emails/sign-in-email.tsx";
 import { SignUpEmail } from "~/emails/sign-up-email.tsx";
 import { env } from "~/env.ts";
-import { site } from "~/settings.ts";
 
 // This secret is used to encrypt the token sent in the magic link and the
 // session used to validate someone else is not trying to sign-in as another
@@ -55,28 +55,28 @@ auth.use(
         const to = [{ email }];
         let subject = "";
         let htmlContent = "";
-
+        const settings = await getSiteSettings();
         if (form?.get("context") === "signup") {
-          subject = `🙌 Complete your signup to ${site.title}`;
+          subject = `🙌 Complete your signup to ${settings.title}`;
           htmlContent = render(
             <SignUpEmail
-              appName={site.title}
+              appName={settings.title}
               magicLink={magicLink}
               loginCode={code}
-              logo={site.logo || ""}
+              logo={settings.logo || ""}
               name={(form?.get("name") as string) || ""}
-              appDescription={site.description}
+              appDescription={settings.description || ""}
             />
           );
         } else {
-          subject = `🔑 Secure sign in link for ${site.title}`;
+          subject = `🔑 Secure sign in link for ${settings.title}`;
           htmlContent = render(
             <SignInEmail
-              appName={site.title}
+              appName={settings.title}
               magicLink={magicLink}
               loginCode={code}
-              logo={site.logo || ""}
-              appDescription={site.description}
+              logo={settings.logo || ""}
+              appDescription={settings.description || ""}
             />
           );
         }

@@ -177,9 +177,34 @@ model Media {
 }
 
 model Settings {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  key       String   @unique
-  value     String
+  id                 String   @id @default(cuid())
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  title              String
+  url                String?
+  description        String?
+  logo               String?
+  facebook           String?
+  twitter            String?
+  instagram          String?
+  youtube            String?
+  linkedin           String?
+  email              String?
+  phone              String?
+  street             String?
+  street2            String?
+  city               String?
+  state              String?
+  zip                String?
+  country            String?
+  googleAnalytics    String?
+  googleApiKey       String?
+  metaDescription    String?
+  metaTitle          String?
+  ogTitle            String?
+  ogDescription      String?
+  ogImage            String?
+  twitterTitle       String?
+  twitterDescription String?
+  twitterImage       String?
 }

@@ -8,7 +8,8 @@ export const withFileInput = <T extends object>(
     image: string | null | undefined;
     imageFromLibrary: string | null | undefined;
     imageDelete?: boolean;
-  }
+  },
+  field: keyof T
 ): T => {
   let imageToSave: string | null | undefined = undefined;
   if (!image && !imageFromLibrary) {
@@ -36,7 +37,7 @@ export const withFileInput = <T extends object>(
   if (imageToSave !== undefined) {
     return {
       ...data,
-      image: imageToSave,
+      [field]: imageToSave,
     };
   }
   return data;

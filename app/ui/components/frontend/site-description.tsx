@@ -1,10 +1,9 @@
 import { BoxedContent } from "~/ui/components/frontend/boxed-content.tsx";
 import { SocialLinks } from "~/ui/components/frontend/social-links.tsx";
-import type { SiteSettings } from "~/settings.ts";
 
 export type SiteDescriptionProps = {
   className?: string;
-  settings: SiteSettings;
+  settings: { title: string; description?: string | null };
   titleElement: "h1" | "div";
 };
 
@@ -19,7 +18,7 @@ export const SiteDescription = ({
         {settings.title}
       </BoxedContent.BoxedContentTitle>
       <BoxedContent.BoxedContentBody className="gap-4 divide-none p-4">
-        <p>{settings.description}</p>
+        <p>{settings.description || "Placeholder description"}</p>
         <SocialLinks
           className="flex justify-start gap-2"
           facebook="#"

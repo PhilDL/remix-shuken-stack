@@ -1,8 +1,10 @@
-import type { Customer, Prisma } from "@prisma/client";
+import type { Customer } from "@prisma/client";
 
 import { prisma } from "~/storage/db.server.ts";
 
-export async function createCustomer(customer: Pick<Customer, "email">) {
+export async function createCustomer(
+  customer: Pick<Customer, "email" | "name">
+) {
   return prisma.customer.create({
     data: { ...customer },
   });

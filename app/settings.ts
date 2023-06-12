@@ -1,37 +1,30 @@
-export type SiteSettings = {
-  title: string;
-  description: string;
-  logo: string;
-  navigation: {
+export type SiteNavigation = {
+  main: {
     label: string;
     url: string;
   }[];
-  secondaryNavigation: {
+  secondary: {
     label: string;
     url: string;
   }[];
-  url?: string;
-  metaDescription?: string;
-  ogTitle?: string;
-  ogDescription?: string;
-  ogImage?: string;
-  twitterTitle?: string;
-  twitterDescription?: string;
-  twitterImage?: string;
-  facebook?: string;
-  twitter?: string;
-  instagram?: string;
 };
 
-export const site: SiteSettings = {
-  title: "Remix Shuken Stack",
-  description: "Batteries included starter for Remix",
-  logo: "/logo.png",
-  navigation: [
+export const navigation: SiteNavigation = {
+  main: [
     {
       label: "Home",
       url: "/",
     },
   ],
-  secondaryNavigation: [],
+  secondary: [],
+};
+
+export type AppSettings = {
+  title: string;
+  description: string;
+};
+
+export const app: AppSettings = {
+  title: "Shuken App",
+  description: "Starter Project",
 };

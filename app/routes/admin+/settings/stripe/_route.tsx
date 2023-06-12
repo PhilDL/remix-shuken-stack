@@ -3,6 +3,7 @@ import { defer, type LoaderArgs } from "@remix-run/node";
 import { Await, useLoaderData } from "@remix-run/react";
 
 import { StripeProduct } from "~/ui/components/admin/stripe-product.tsx";
+import { Badge } from "~/ui/components/badge.tsx";
 import {
   Card,
   CardContent,
@@ -25,7 +26,18 @@ export default function SettingsStripe() {
       <Card className="w-full">
         <CardHeader>
           <CardTitle>Stripe Products</CardTitle>
-          <CardDescription>Connected stripe Account</CardDescription>
+          <CardDescription>
+            <div className="flex flex-row justify-between">
+              Connected stripe Account
+              <Badge
+                variant={"outline"}
+                className="flex flex-row items-start justify-between gap-3"
+              >
+                Connected{" "}
+                <span className="flex h-2 w-2 translate-y-1 rounded-full bg-lime-500" />
+              </Badge>
+            </div>
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <Suspense
