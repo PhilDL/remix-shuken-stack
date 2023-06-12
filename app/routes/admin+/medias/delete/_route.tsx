@@ -3,7 +3,7 @@ import { inputFromForm } from "domain-functions";
 
 import { auth } from "~/storage/admin-auth.server.ts";
 import { wrapDomainErrorJSON } from "~/storage/flash-message.server.ts";
-import { deleteMediaAction } from "~/domain/admin/media.server.ts";
+import { deleteMediaAction } from "~/routes/admin+/medias/media.server.ts";
 
 export async function action({ request }: ActionArgs) {
   const deleteOperation = await deleteMediaAction(
@@ -13,7 +13,7 @@ export async function action({ request }: ActionArgs) {
     })
   );
   if (!deleteOperation.success) {
-    console.log("deleteOperation", deleteOperation);
+    console.warn("deleteOperation", deleteOperation);
     return wrapDomainErrorJSON(deleteOperation, request);
   }
   return redirect("/admin/medias");

@@ -49,8 +49,8 @@ auth.use(
       },
       sendCode: async ({ email, code, magicLink, user, form, request }) => {
         const sender = {
-          name: "CodingDodo",
-          email: "contact@codingdodo.com",
+          name: "Shuken",
+          email: "contact@shuken.app",
         };
         const to = [{ email }];
         let subject = "";

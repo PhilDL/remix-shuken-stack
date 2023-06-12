@@ -2,6 +2,8 @@ import { NavLink } from "@remix-run/react";
 import { clsx } from "clsx";
 import type { LucideIcon } from "lucide-react";
 
+import { app } from "~/settings.ts";
+
 export type DesktopAsideProps = {
   navigation: {
     name: string;
@@ -22,7 +24,11 @@ export const DesktopAside = ({ navigation }: DesktopAsideProps) => {
           to="/"
           className="flex h-16 shrink-0 items-center bg-white px-4 dark:bg-slate-950"
         >
-          <img src="/logo-small.png" alt="Coding Dodo Logo" className="h-8" />
+          <img
+            src="/logo-small.png"
+            alt={`${app.title} Logo`}
+            className="h-8"
+          />
         </NavLink>
         <div className="flex flex-1 flex-col overflow-y-auto">
           <nav className="flex-1 space-y-1 px-2 py-4">

@@ -34,7 +34,7 @@ import {
   commitFlashMessageSession,
 } from "~/storage/flash-message.server.ts";
 import { getSession, sessionStorage } from "~/storage/session.server.ts";
-import { verifyMember } from "~/domain/frontend/verify-member.server.ts";
+import { verifyMember } from "~/routes/_frontend+/_auth/verify-member.server.ts";
 
 export async function loader({ request }: LoaderArgs) {
   await auth.isAuthenticated(request, { successRedirect: "/account" });

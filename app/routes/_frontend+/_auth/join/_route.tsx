@@ -31,8 +31,8 @@ import {
   redirectWithFlashMessage,
 } from "~/storage/flash-message.server.ts";
 import { getSession, sessionStorage } from "~/storage/session.server.ts";
-import { createMember } from "~/domain/frontend/create-member.server.ts";
-import type { loader as rootBlogLoader } from "~/routes/_frontend+/_frontend.tsx";
+import { createMember } from "~/routes/_frontend+/_auth/create-member.server.ts";
+import type { loader as rootBlogLoader } from "~/routes/_frontend+/_layout.tsx";
 import type { UwrapJSONLoaderData } from "~/types.ts";
 
 export async function loader({ request }: LoaderArgs) {

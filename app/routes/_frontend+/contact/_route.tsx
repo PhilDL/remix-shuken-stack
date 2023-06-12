@@ -15,7 +15,7 @@ import { getSession } from "~/storage/session.server.ts";
 import {
   contactFormHandler,
   inputContactForm,
-} from "~/domain/frontend/contact-form-handler.server.ts";
+} from "./contact-form-handler.server.ts";
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.clone().formData();

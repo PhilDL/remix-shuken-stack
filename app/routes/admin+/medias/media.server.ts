@@ -5,16 +5,17 @@ import * as z from "zod";
 
 import { checkIsRecordAuthor } from "~/models/helpers.server.ts";
 import { env } from "~/env.ts";
-import { deleteMedia, getMedia } from "../../models/medias.server.ts";
-import { requiredUser } from "./schemas.ts";
+import { deleteMedia, getMedia } from "../../../models/medias.server.ts";
 
-const inputDeleteCourse = z.object({
+const inputDeleteMedia = z.object({
   mediaId: z.string(),
   action: z.literal("delete"),
 });
 export const deleteMediaAction = makeDomainFunction(
-  inputDeleteCourse,
-  requiredUser
+  inputDeleteMedia,
+  z.object({
+    id: z.string(),
+  })
 )(async ({ mediaId, action }, user) => {
   const userIsMediaOwner = await checkIsRecordAuthor(user.id, mediaId, "media");
   if (!userIsMediaOwner) {

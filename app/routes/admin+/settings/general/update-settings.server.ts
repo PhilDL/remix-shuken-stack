@@ -1,11 +1,8 @@
-import type { Settings } from "@prisma/client";
 import { makeDomainFunction } from "domain-functions";
 import * as z from "zod";
 
+import { parseImageIntent } from "~/storage/parse-image-intent.ts";
 import { updateSiteSettings } from "~/models/settings.server.ts";
-import { withFileInput } from "~/domain/admin/helpers.server.ts";
-
-type UpdateSettings = Partial<Omit<Settings, "id" | "createdAt" | "updatedAt">>;
 
 export const inputSettingsSchema = z.object({
   title: z.string().nonempty(),
@@ -21,14 +18,14 @@ export const updateSettingsAction = makeDomainFunction(
     id: z.string(),
   })
 )(async ({ logo, logoFromLibrary, logoDelete, ...rest }, { id }) => {
-  // perform check on user role
-  let data = withFileInput<UpdateSettings>(
-    {
-      ...rest,
-    },
-    { image: logo, imageFromLibrary: logoFromLibrary, imageDelete: logoDelete },
-    "logo"
-  );
+  let data = {
+    ...rest,
+    ...parseImageIntent("logo", {
+      image: logo,
+      imageFromLibrary: logoFromLibrary,
+      imageDelete: logoDelete,
+    }),
+  };
   const settings = await updateSiteSettings(data);
   return settings;
 });

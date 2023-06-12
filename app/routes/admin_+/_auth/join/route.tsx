@@ -17,7 +17,7 @@ import {
   redirectWithFlashMessage,
   wrapDomainErrorJSON,
 } from "~/storage/flash-message.server.ts";
-import { createStaffAdminUser } from "~/domain/admin/users.server.ts";
+import { createStaffAdminUser } from "~/routes/admin_+/_auth/users.server.ts";
 
 export async function loader({ request }: LoaderArgs) {
   return {};

@@ -16,7 +16,7 @@ async function uploadImage(data: AsyncIterable<Uint8Array>) {
   const uploadPromise = new Promise(async (resolve, reject) => {
     const uploadStream = cloudinary.v2.uploader.upload_stream(
       {
-        folder: "codingdodo",
+        folder: "shuken",
       },
       (error, result) => {
         if (error) {

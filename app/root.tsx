@@ -22,6 +22,7 @@ import {
   useTheme,
 } from "~/ui/components/theme-provider.tsx";
 import { Toaster } from "~/ui/components/toaster.tsx";
+import { app } from "~/settings.ts";
 import { getUser } from "./storage/session.server.ts";
 import { getThemeSession } from "./storage/theme.server.ts";
 import fontStylesheet from "./styles/fonts.css";
@@ -33,17 +34,12 @@ export const links: LinksFunction = () => {
     { rel: "stylesheet", href: fontStylesheet },
     { rel: "stylesheet", href: tailwindStylesheetUrl },
     { rel: "stylesheet", href: nordthemeStylesheet },
-    {
-      rel: "icon",
-      href: "https://codingdodo.com/content/images/size/w256h256/2021/04/small-logo.png",
-      type: "image/png",
-    },
   ];
 };
 
 export const meta: V2_MetaFunction = () => [
   { charset: "utf-8" },
-  { title: "Coding Dodo - Odoo Developement, Python and ERP Tutorials" },
+  { title: `${app.title} - ${app.description}` },
   { viewport: "width=device-width,initial-scale=1" },
 ];
 

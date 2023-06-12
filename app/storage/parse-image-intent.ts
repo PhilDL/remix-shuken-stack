@@ -1,5 +1,5 @@
-export const withFileInput = <T extends object>(
-  data: T,
+export const parseImageIntent = <const Field extends string>(
+  imageField: Field,
   {
     image,
     imageFromLibrary,
@@ -8,12 +8,11 @@ export const withFileInput = <T extends object>(
     image: string | null | undefined;
     imageFromLibrary: string | null | undefined;
     imageDelete?: boolean;
-  },
-  field: keyof T
-): T => {
+  }
+): {} | { [key in Field]: string } => {
   let imageToSave: string | null | undefined = undefined;
   if (!image && !imageFromLibrary) {
-    imageToSave = undefined;
+    return {};
   }
   if (
     imageFromLibrary &&
@@ -36,9 +35,8 @@ export const withFileInput = <T extends object>(
   }
   if (imageToSave !== undefined) {
     return {
-      ...data,
-      [field]: imageToSave,
+      [imageField]: imageToSave,
     };
   }
-  return data;
+  return {};
 };

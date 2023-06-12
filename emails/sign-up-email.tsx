@@ -21,13 +21,13 @@ interface SignUpEmailProps {
 }
 
 export const SignUpEmail = ({
-  appName = "CodingDodo",
-  magicLink = "https://codingdodo.com",
+  appName = "Shuken - Remix stack",
+  magicLink = "https://shuken.app",
   loginCode = "GV4FQG",
   accentColor = "#c61bb2",
-  logo = "https://codingdodo.com/content/images/size/w300/2021/04/Coding-Dodo.png",
+  logo = "https://shuken.app/content/images/size/w300/2021/04/Coding-Dodo.png",
   name,
-  appDescription = "CodingDodo is a platform for developers to share their knowledge and connect with other developers.",
+  appDescription = "Shuken is an all-in-one Remix app starter.",
 }: SignUpEmailProps) => (
   <Html>
     <Head />
