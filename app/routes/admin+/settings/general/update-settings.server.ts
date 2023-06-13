@@ -10,6 +10,14 @@ export const inputSettingsSchema = z.object({
   logo: z.string().optional().nullable(),
   logoFromLibrary: z.string().optional().nullable(),
   logoDelete: z.coerce.boolean().optional().default(false),
+  email: z.string().email().optional().nullable(),
+  phone: z.string().optional().nullable(),
+  street: z.string().optional().nullable(),
+  street2: z.string().optional().nullable(),
+  city: z.string().optional().nullable(),
+  state: z.string().optional().nullable(),
+  zip: z.string().optional().nullable(),
+  country: z.string().optional().nullable(),
 });
 
 export const updateSettingsAction = makeDomainFunction(

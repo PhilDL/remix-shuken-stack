@@ -26,15 +26,15 @@ export async function loader({ request }: LoaderArgs) {
   return json({ posts });
 }
 
-export default function ArticlesIndex() {
+export default function PostsIndex() {
   const { posts } = useLoaderData<typeof loader>();
   return (
     <PageContainer>
       <PageHeader
-        title="Articles"
-        subTitle="These are your articles"
+        title="Posts"
+        subTitle="These are your posts"
         actions={
-          <LinkButton to="/admin/articles/new" variant={"outline"}>
+          <LinkButton to="/admin/posts/new" variant={"outline"}>
             New Article
           </LinkButton>
         }
@@ -55,7 +55,7 @@ export default function ArticlesIndex() {
           <TableBody>
             {posts.length === 0 ? (
               <TableEmptyState
-                to="/admin/articles/new"
+                to="/admin/posts/new"
                 LucideIcon={BookOpen}
                 message="Create a new Post"
               />
@@ -73,7 +73,7 @@ export default function ArticlesIndex() {
                     </TableCell>
                     <TableCell>
                       <NavLinkButton
-                        to={`/admin/articles/${post.slug}`}
+                        to={`/admin/posts/${post.slug}`}
                         variant={"link"}
                       >
                         Edit

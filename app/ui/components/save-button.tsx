@@ -36,7 +36,11 @@ const SaveButton = React.forwardRef<HTMLButtonElement, SaveButtonProps>(
 
     React.useEffect(() => {
       if (navigationState === "submitting") {
-        setButtonIcon(<Loader className={cn(buttonIconVariants({ size }))} />);
+        setButtonIcon(
+          <Loader
+            className={cn(buttonIconVariants({ size }), "animate-spin")}
+          />
+        );
         setSaved(true);
       } else {
         if (saved) {

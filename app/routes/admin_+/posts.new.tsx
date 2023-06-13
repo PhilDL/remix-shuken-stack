@@ -67,7 +67,7 @@ export async function action({ request }: ActionArgs) {
     authorId: userId,
   });
   invariant(post, "Post was not created");
-  return redirect(`/admin/articles/${post.slug}`);
+  return redirect(`/admin/posts/${post.slug}`);
 }
 
 export default function NewArticle() {
@@ -97,7 +97,7 @@ export default function NewArticle() {
           <header>
             <div className="flex items-center justify-between p-4">
               <div>
-                <NavLinkButton to="/admin/articles" variant={"outline"}>
+                <NavLinkButton to="/admin/posts" variant={"outline"}>
                   <ChevronLeftIcon className="h-4 w-4" aria-hidden="true" />{" "}
                   Back
                 </NavLinkButton>

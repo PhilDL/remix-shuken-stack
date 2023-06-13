@@ -55,7 +55,7 @@ const menus = [
     href: "/tag/typescript",
     image:
       "https://digitalpress.fra1.cdn.digitaloceanspaces.com/0bwz1yk/2023/05/ts-logo-512.png",
-    description: "Compilation of articles about TypeScript.",
+    description: "Compilation of posts about TypeScript.",
   },
   {
     label: "@ts-ghost",

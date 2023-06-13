@@ -40,7 +40,7 @@ export default function Settings() {
           <TabsNavLink to="/admin/settings/profile">Profile</TabsNavLink>
           <TabsNavLink to="/admin/settings/stripe">Stripe</TabsNavLink>
         </div>
-        <div className="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+        <div className="mt-8 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
           <Outlet />
         </div>
       </main>

@@ -34,8 +34,8 @@ const navigation = [
     current: false,
   },
   {
-    name: "Articles",
-    href: "/admin/articles",
+    name: "Posts",
+    href: "/admin/posts",
     LucideIcon: Feather,
     current: false,
   },

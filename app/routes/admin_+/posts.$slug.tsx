@@ -48,7 +48,7 @@ export async function loader({ request, params }: LoaderArgs) {
   const post = await getPostBySlug(slug);
   invariant(post, "Post not found");
   if (post.authorId !== user.id) {
-    return redirect("/admin/articles");
+    return redirect("/admin/posts");
   }
   let markdownContent = parseMarkdown(post.content || "");
   return json({ post, markdownContent });
@@ -79,7 +79,7 @@ export async function action({ request, params }: ActionArgs) {
     authorId: user.id,
   });
   invariant(updatedPost, "Post was not updated");
-  return redirect(`/admin/articles/${updatedPost.slug}`);
+  return redirect(`/admin/posts/${updatedPost.slug}`);
 }
 export default function EditorPage() {
   const navigation = useNavigation();
@@ -108,7 +108,7 @@ export default function EditorPage() {
           <header>
             <div className="flex items-center justify-between p-4">
               <div>
-                <NavLinkButton to="/admin/articles" variant={"outline"}>
+                <NavLinkButton to="/admin/posts" variant={"outline"}>
                   <ChevronLeftIcon className="h-4 w-4" aria-hidden="true" />{" "}
                   Back
                 </NavLinkButton>
