@@ -1,9 +1,17 @@
 import { json, type LoaderArgs } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-import { BookOpen } from "lucide-react";
+import { Link, useLoaderData } from "@remix-run/react";
+import { BookOpen, MoreHorizontal } from "lucide-react";
 
 import { PageContainer } from "~/ui/components/admin/page-container.tsx";
 import { PageHeader } from "~/ui/components/admin/page-header.tsx";
+import { Button } from "~/ui/components/button.tsx";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "~/ui/components/dropdown-menu.tsx";
 import { LinkButton } from "~/ui/components/link-button.tsx";
 import { NavLinkButton } from "~/ui/components/navlink-button.tsx";
 import {
@@ -47,9 +55,7 @@ export default function PostsIndex() {
               <TableHead>Tags</TableHead>
               <TableHead>Author</TableHead>
               <TableHead>Status</TableHead>
-              <TableCell className="relative py-3.5 pl-3 pr-6">
-                Actions
-              </TableCell>
+              <TableHead></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -72,12 +78,20 @@ export default function PostsIndex() {
                       {post.publishedAt ? "Published" : "Draft"}
                     </TableCell>
                     <TableCell>
-                      <NavLinkButton
-                        to={`/admin/posts/${post.slug}`}
-                        variant={"link"}
-                      >
-                        Edit
-                      </NavLinkButton>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" className="h-8 w-8 p-0">
+                            <span className="sr-only">Open menu</span>
+                            <MoreHorizontal className="h-4 w-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                          <DropdownMenuItem asChild>
+                            <Link to={`/admin/posts/${post.slug}`}>Edit</Link>
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                     </TableCell>
                   </TableRow>
                 ))}

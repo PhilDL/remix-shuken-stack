@@ -16,10 +16,10 @@ import { Textarea } from "~/ui/components/textarea.tsx";
 export type ProductFormsError = {
   name?: string | string[] | null;
   description?: string | string[] | null;
-  monthly?: boolean | null;
-  yearly?: boolean | null;
-  monthlyPrice?: boolean | null;
-  yearlyPrice?: boolean | null;
+  monthly?: string[] | boolean | null;
+  yearly?: string[] | boolean | null;
+  monthlyPrice?: number | string[] | null;
+  yearlyPrice?: number | string[] | null;
 };
 
 export type ProductFormProps = {
