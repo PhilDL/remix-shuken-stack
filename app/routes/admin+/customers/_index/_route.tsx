@@ -1,8 +1,8 @@
 import type { ActionArgs } from "@remix-run/node";
 import { json, redirect, type LoaderArgs } from "@remix-run/node";
-import { useFetcher, useLoaderData } from "@remix-run/react";
+import { Link, useFetcher, useLoaderData } from "@remix-run/react";
 import { inputFromForm } from "domain-functions";
-import { User2Icon } from "lucide-react";
+import { MoreHorizontal, User2Icon } from "lucide-react";
 
 import { PageContainer } from "~/ui/components/admin/page-container.tsx";
 import { PageHeader } from "~/ui/components/admin/page-header.tsx";
@@ -18,8 +18,15 @@ import {
   AlertDialogTrigger,
 } from "~/ui/components/alert-dialog.tsx";
 import { Button } from "~/ui/components/button.tsx";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "~/ui/components/dropdown-menu.tsx";
 import { LinkButton } from "~/ui/components/link-button.tsx";
-import { NavLinkButton } from "~/ui/components/navlink-button.tsx";
 import {
   Table,
   TableBody,
@@ -77,9 +84,7 @@ export default function CustomersIndex() {
               <TableHead>Email</TableHead>
               <TableHead>Note</TableHead>
               <TableHead>Subscription</TableHead>
-              <TableCell className="relative py-3.5 pl-3 pr-6">
-                Actions
-              </TableCell>
+              <TableHead></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -102,51 +107,62 @@ export default function CustomersIndex() {
                       {customer.subscribed ? "Subscribed" : "None"}
                     </TableCell>
                     <TableCell>
-                      <NavLinkButton
-                        to={`/admin/customers/${customer.id}`}
-                        variant={"link"}
-                      >
-                        Edit
-                      </NavLinkButton>
-                      <AlertDialog>
-                        <AlertDialogTrigger className="text-red-700 dark:text-red-300">
-                          Delete
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                          <AlertDialogHeader>
-                            <AlertDialogTitle>
-                              Are you sure absolutely sure?
-                            </AlertDialogTitle>
-                            <AlertDialogDescription>
-                              This action cannot be undone. This will
-                              permanently delete this customer and all related
-                              subscriptions.
-                            </AlertDialogDescription>
-                          </AlertDialogHeader>
-                          <AlertDialogFooter>
-                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" className="h-8 w-8 p-0">
+                            <span className="sr-only">Open menu</span>
+                            <MoreHorizontal className="h-4 w-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                          <DropdownMenuItem asChild>
+                            <Link to={`/admin/customers/${customer.id}`}>
+                              Edit
+                            </Link>
+                          </DropdownMenuItem>
+                          <DropdownMenuSeparator />
+                          <AlertDialog>
+                            <AlertDialogTrigger className="relative flex w-full cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-muted focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
+                              Delete
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>
+                                  Are you sure absolutely sure?
+                                </AlertDialogTitle>
+                                <AlertDialogDescription>
+                                  This action cannot be undone. This will
+                                  permanently delete this customer and all
+                                  related subscriptions.
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel>Cancel</AlertDialogCancel>
 
-                            <AlertDialogAction asChild>
-                              <Button
-                                type="submit"
-                                variant="destructive"
-                                size="sm"
-                                onClick={() =>
-                                  fetcher.submit(
-                                    {
-                                      action: "delete",
-                                      customerId: customer.id,
-                                    },
-                                    { method: "post" }
-                                  )
-                                }
-                              >
-                                Delete
-                              </Button>
-                            </AlertDialogAction>
-                          </AlertDialogFooter>
-                        </AlertDialogContent>
-                      </AlertDialog>
+                                <AlertDialogAction asChild>
+                                  <Button
+                                    type="submit"
+                                    variant="destructive"
+                                    size="sm"
+                                    onClick={() =>
+                                      fetcher.submit(
+                                        {
+                                          action: "delete",
+                                          customerId: customer.id,
+                                        },
+                                        { method: "post" }
+                                      )
+                                    }
+                                  >
+                                    Delete
+                                  </Button>
+                                </AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                     </TableCell>
                   </TableRow>
                 ))}
