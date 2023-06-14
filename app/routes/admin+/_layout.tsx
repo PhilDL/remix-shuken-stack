@@ -7,7 +7,15 @@ import {
   useRouteError,
 } from "@remix-run/react";
 import { clsx } from "clsx";
-import { Book, Feather, Home, ImageIcon, Settings, Users } from "lucide-react";
+import {
+  Book,
+  DollarSign,
+  Feather,
+  Home,
+  ImageIcon,
+  Settings,
+  Users,
+} from "lucide-react";
 
 import { DesktopAside } from "~/ui/components/admin/desktop-aside.tsx";
 import { NavTop } from "~/ui/components/admin/nav-top.tsx";
@@ -45,6 +53,12 @@ const navigation = [
     LucideIcon: Book,
     current: false,
     children: [{ name: "CSV Uploads", href: "/admin/csv-upload" }],
+  },
+  {
+    name: "Plans",
+    href: "/admin/plans",
+    LucideIcon: DollarSign,
+    current: false,
   },
   {
     name: "Medias",

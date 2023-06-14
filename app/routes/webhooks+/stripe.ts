@@ -62,7 +62,7 @@ export async function action({ request }: DataFunctionArgs) {
         const subscription = await retrieveStripeSubscription(subscriptionId);
         await updateSubscriptionByCustomerId(user.id, {
           id: subscription.id,
-          planId: String(subscription.items.data[0].plan.product),
+          productId: String(subscription.items.data[0].plan.product),
           priceId: String(subscription.items.data[0].price.id),
           interval: String(subscription.items.data[0].plan.interval),
           status: subscription.status,
@@ -100,7 +100,7 @@ export async function action({ request }: DataFunctionArgs) {
         // Update database subscription.
         await updateSubscriptionByCustomerId(user.id, {
           id: subscription.id,
-          planId: String(subscription.items.data[0].plan.product),
+          productId: String(subscription.items.data[0].plan.product),
           priceId: String(subscription.items.data[0].price.id),
           interval: String(subscription.items.data[0].plan.interval),
           status: subscription.status,

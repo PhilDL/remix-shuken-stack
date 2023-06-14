@@ -4,7 +4,7 @@ import { redirect } from "@remix-run/node";
 import { getDefaultCurrency } from "~/utils/locales.ts";
 import { auth } from "~/storage/auth.server.tsx";
 import { getCustomerById } from "~/models/customer.server.ts";
-import { getPlanById } from "~/models/plan.server.ts";
+import { getProductById } from "~/models/product.server.ts";
 import { createStripeCheckoutSession } from "~/services/stripe/create-checkout.ts";
 
 export async function loader({ request }: DataFunctionArgs) {
@@ -23,11 +23,11 @@ export async function action({ request }: DataFunctionArgs) {
 
   // Get form values.
   const formData = Object.fromEntries(await request.formData());
-  const formDataParsed = JSON.parse(formData.plan as string);
-  const planId = String(formDataParsed.planId);
+  const formDataParsed = JSON.parse(formData.product as string);
+  const productId = String(formDataParsed.productId);
   const planInterval = String(formDataParsed.planInterval);
 
-  if (!planId || !planInterval)
+  if (!productId || !planInterval)
     throw new Error(
       "Missing required parameters to create Stripe Checkout Session."
     );
@@ -36,17 +36,17 @@ export async function action({ request }: DataFunctionArgs) {
   const defaultCurrency = getDefaultCurrency(request);
 
   // Get price ID for the requested plan.
-  const plan = await getPlanById(planId, { prices: true });
-  const planPrice = plan?.prices.find(
+  const product = await getProductById(productId, { prices: true });
+  const productPrice = product?.prices.find(
     (price) =>
       price.interval === planInterval && price.currency === defaultCurrency
   );
-  if (!planPrice) throw new Error("Unable to find a Plan price.");
+  if (!productPrice) throw new Error("Unable to find a Plan price.");
 
   // Redirect to Checkout.
   const checkoutUrl = await createStripeCheckoutSession(
     customer.stripeCustomerId,
-    planPrice.id
+    productPrice.id
   );
   return redirect(checkoutUrl);
 }

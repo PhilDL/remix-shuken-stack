@@ -4,7 +4,7 @@ import { redirect } from "@remix-run/node";
 import { getDefaultCurrency } from "~/utils/locales.ts";
 import { auth } from "~/storage/auth.server.tsx";
 import { getCustomerById } from "~/models/customer.server.ts";
-import { getPlanById } from "~/models/plan.server.ts";
+import { getProductById } from "~/models/product.server.ts";
 import {
   createSubscription,
   getSubscriptionByCustomerId,
@@ -27,7 +27,7 @@ export async function loader({ request }: DataFunctionArgs) {
 
   // Get client's currency and Free Plan price ID.
   const currency = getDefaultCurrency(request);
-  const freePlan = await getPlanById(PlanId.FREE, { prices: true });
+  const freePlan = await getProductById(PlanId.FREE, { prices: true });
   const freePlanPrice = freePlan?.prices.find(
     (price) => price.interval === "year" && price.currency === currency
   );
@@ -45,7 +45,7 @@ export async function loader({ request }: DataFunctionArgs) {
   const storedSubscription = await createSubscription({
     id: newSubscription.id,
     customerId: customer.id,
-    planId: String(newSubscription.items.data[0].plan.product),
+    productId: String(newSubscription.items.data[0].plan.product),
     priceId: String(newSubscription.items.data[0].price.id),
     interval: String(newSubscription.items.data[0].plan.interval),
     status: newSubscription.status,

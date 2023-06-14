@@ -53,29 +53,34 @@ model Customer {
   stripeCustomerId String?       @unique
 }
 
-// ...
-// Subscription Related Models.
-// ...
+model Product {
+  id              String           @id @default(cuid())
+  name            String
+  description     String?
+  active          Boolean?         @default(true)
+  limits          PlanLimit?
+  prices          Price[]
+  subscriptions   Subscription[]
+  stripeProductId String           @unique
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  features        ProductFeature[]
+}
 
-// Plans are used to describe and group our Stripe Products.
-model Plan {
-  id            String         @id @unique
-  name          String
-  description   String?
-  active        Boolean?       @default(true)
-  limits        PlanLimit?
-  prices        Price[]
-  subscriptions Subscription[]
-
+model ProductFeature {
+  id        String   @id @default(cuid())
+  name      String
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 // Plan limits are used to describe the limits available to a plan.
 model PlanLimit {
-  id     String @id @default(cuid())
-  plan   Plan   @relation(fields: [planId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  planId String @unique
+  id     String  @id @default(cuid())
+  plan   Product @relation(fields: [planId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  planId String  @unique
 
   // Here you can define your own limits.
   // For example, you could have a limit on the number of items a user can create.
@@ -85,13 +90,14 @@ model PlanLimit {
 // Prices are used to identify our plan prices.
 model Price {
   id            String         @id @unique // Managed by Stripe - (Price ID)
-  plan          Plan           @relation(fields: [planId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  planId        String
+  product       Product        @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  productId     String
   amount        Int
   currency      String
   interval      String
   active        Boolean        @default(true)
   subscriptions Subscription[]
+  type          String         @default("one_time") // "one_time" | "recurring"
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -101,8 +107,8 @@ model Subscription {
   id                 String   @id @unique // Managed by Stripe - (Subscription ID)
   customer           Customer @relation(fields: [customerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   customerId         String   @unique
-  plan               Plan     @relation(fields: [planId], references: [id])
-  planId             String
+  product            Product  @relation(fields: [productId], references: [id])
+  productId          String
   price              Price    @relation(fields: [priceId], references: [id])
   priceId            String
   interval           String

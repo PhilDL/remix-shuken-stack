@@ -1,11 +1,17 @@
 import React from "react";
+import { useFetcher } from "@remix-run/react";
 import type Stripe from "stripe";
 
 import { Badge } from "~/ui/components/badge.tsx";
+import { Button } from "../button.tsx";
+import { ProductPrice } from "./product-price.tsx";
 
 export type StripeProductProps = React.HTMLAttributes<HTMLDivElement> & {
   product: Stripe.Product;
   prices: Stripe.Price[];
+  associatedPlan?: {
+    id: string;
+  };
 };
 
 export const formatCurrency = (amount: number | null, currency: string) => {
@@ -16,41 +22,10 @@ export const formatCurrency = (amount: number | null, currency: string) => {
   }).format((amount || 0) / 100);
 };
 
-export type StripeProductPriceProps = React.HTMLAttributes<HTMLSpanElement> & {
-  price: {
-    type: "one_time" | "recurring";
-    unit_amount: number | null;
-    currency: string;
-    recurring?: { interval: "day" | "month" | "week" | "year" } | null;
-  };
-};
-
-const StripeProductPrice = React.forwardRef<
-  HTMLSpanElement,
-  StripeProductPriceProps
->(({ className, price, ...props }, ref) => {
-  if (price.type === "one_time") {
-    return (
-      <span className={className} ref={ref} {...props}>
-        {formatCurrency(price.unit_amount, price.currency)}
-      </span>
-    );
-  }
-  return (
-    <span className={className} ref={ref} {...props}>
-      <b>{formatCurrency(price.unit_amount, price.currency)}</b>
-      <i className="text-xs text-muted-foreground">
-        {" / "}
-        {price.recurring?.interval || ""}
-      </i>
-    </span>
-  );
-});
-
-StripeProductPrice.displayName = "StripeProductPrice";
-
 const StripeProduct = React.forwardRef<HTMLDivElement, StripeProductProps>(
-  ({ className, product, prices, ...props }, ref) => {
+  ({ className, product, prices, associatedPlan, ...props }, ref) => {
+    const fetcher = useFetcher();
+
     return (
       <div
         key={product.id}
@@ -58,17 +33,53 @@ const StripeProduct = React.forwardRef<HTMLDivElement, StripeProductProps>(
       >
         <div className="flex flex-row items-baseline justify-between gap-4">
           <h2 className="line-clamp-2 font-semibold">{product.name}</h2>
-          <Badge
-            variant={product.active ? "outline" : "secondary"}
-            className="flex flex-row items-center justify-between gap-2"
-          >
-            {product.active ? "Active" : "Inactive"}{" "}
-            {product.livemode ? (
-              <span className="flex-none animate-pulse rounded-full bg-lime-500/10 p-1 text-lime-500 animate-in">
-                <span className="flex h-2 w-2 rounded-full bg-lime-500" />
-              </span>
-            ) : null}
-          </Badge>
+          <div className="flex flex-row gap-2">
+            <Badge
+              variant={product.active ? "outline" : "secondary"}
+              className="flex flex-row items-center justify-between gap-2"
+            >
+              {product.active ? "Active" : "Inactive"}{" "}
+              {product.livemode ? (
+                <span className="flex-none animate-pulse rounded-full bg-lime-500/10 p-1 text-lime-500 animate-in">
+                  <span className="flex h-2 w-2 rounded-full bg-lime-500" />
+                </span>
+              ) : null}
+            </Badge>
+            {associatedPlan ? (
+              <Badge
+                variant={"outline"}
+                className="flex flex-row items-center justify-between gap-2"
+              >
+                Associated{" "}
+                <span className="flex-none animate-pulse rounded-full bg-lime-500/10 p-1 text-lime-500 animate-in">
+                  <span className="flex h-2 w-2 rounded-full bg-lime-500" />
+                </span>
+              </Badge>
+            ) : (
+              <fetcher.Form
+                method="post"
+                action="/admin/settings/stripe/associate-plan"
+              >
+                <input
+                  type="hidden"
+                  name="productId"
+                  value={product.id}
+                  readOnly
+                />
+                <Button
+                  type="submit"
+                  className="flex h-auto flex-row items-center justify-between gap-2 rounded-full py-1 text-xs"
+                  size={"sm"}
+                  disabled={fetcher.formData?.get("productId") === product.id}
+                >
+                  Associate{" "}
+                  <span className="flex-none animate-pulse rounded-full bg-gray-500/10 p-1 text-gray-500 animate-in">
+                    <span className="flex h-2 w-2 rounded-full bg-gray-500" />
+                  </span>
+                </Button>
+              </fetcher.Form>
+            )}
+          </div>
         </div>
         <div className="flex flex-col gap-3">
           {prices
@@ -86,7 +97,12 @@ const StripeProduct = React.forwardRef<HTMLDivElement, StripeProductProps>(
                 </div>
 
                 <p className="mt-1 self-start text-foreground">
-                  <StripeProductPrice price={price} />
+                  <ProductPrice
+                    type={price.type}
+                    amount={price.unit_amount}
+                    currency={price.currency}
+                    interval={price.recurring?.interval}
+                  />
                 </p>
               </div>
             ))}

@@ -24,10 +24,10 @@ export async function loader({ request }: LoaderArgs) {
   const subscription = await getSubscriptionByCustomerId(user.id);
 
   // User is already subscribed.
-  if (subscription?.planId !== PlanId.FREE) return redirect("/account");
+  if (subscription?.productId !== PlanId.FREE) return redirect("/account");
 
   return json({
-    pending: subscription?.planId === PlanId.FREE,
+    pending: subscription?.productId === PlanId.FREE,
     subscription,
   });
 }
@@ -72,7 +72,7 @@ export default function Checkout() {
           </CardHeader>
           <CardContent>
             You are now subscribed to the{" "}
-            <strong>{subscription && subscription.planId}</strong> plan.
+            <strong>{subscription && subscription.productId}</strong> plan.
           </CardContent>
           <CardFooter>
             <LinkButton to="/account" prefetch="intent" className="w-full">

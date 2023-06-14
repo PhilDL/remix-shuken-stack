@@ -100,21 +100,21 @@ export default function Account() {
         <div className="flex h-full w-full flex-col items-center">
           {/* Images. */}
           <div className="flex flex-col items-center">
-            {subscription.planId === PlanId.FREE && (
+            {subscription.productId === PlanId.FREE && (
               <img
                 src="https://raw.githubusercontent.com/dev-xo/dev-xo/main/assets/images/star_1.png"
                 alt=""
                 className="h-36 w-36 select-none transition hover:scale-105 hover:brightness-110"
               />
             )}
-            {subscription.planId === PlanId.STARTER && (
+            {subscription.productId === PlanId.STARTER && (
               <img
                 src="https://raw.githubusercontent.com/dev-xo/dev-xo/main/assets/images/star_1.png"
                 alt=""
                 className="h-36 w-36 select-none hue-rotate-60 transition hover:scale-105 hover:brightness-110"
               />
             )}
-            {subscription.planId === PlanId.PRO && (
+            {subscription.productId === PlanId.PRO && (
               <img
                 src="https://raw.githubusercontent.com/dev-xo/dev-xo/main/assets/images/star_2.png"
                 alt=""
@@ -127,26 +127,26 @@ export default function Account() {
           {/* Info. */}
           <div className="flex flex-col items-center">
             <h5 className="text-center text-2xl font-bold text-gray-200">
-              {String(subscription.planId).charAt(0).toUpperCase() +
-                subscription.planId.slice(1)}{" "}
+              {String(subscription.productId).charAt(0).toUpperCase() +
+                subscription.productId.slice(1)}{" "}
               Plan
             </h5>
 
             <span className="text-center text-lg font-semibold text-gray-400">
-              {subscription.planId === PlanId.FREE &&
+              {subscription.productId === PlanId.FREE &&
                 PRICING_PLANS[PlanId.FREE].description}
 
-              {subscription.planId === PlanId.STARTER &&
+              {subscription.productId === PlanId.STARTER &&
                 PRICING_PLANS[PlanId.STARTER].description}
 
-              {subscription.planId === PlanId.PRO &&
+              {subscription.productId === PlanId.PRO &&
                 PRICING_PLANS[PlanId.PRO].description}
             </span>
           </div>
           <div className="my-3" />
 
           {/* Plans Link. */}
-          {subscription.planId === PlanId.FREE && (
+          {subscription.productId === PlanId.FREE && (
             <>
               <Link
                 to="/plans"
@@ -164,7 +164,7 @@ export default function Account() {
           {user.stripeCustomerId && <CustomerPortalButton />}
 
           {/* Expire / Renew Date. */}
-          {subscription.planId !== PlanId.FREE ? (
+          {subscription.productId !== PlanId.FREE ? (
             <div className="max-w-[200px]">
               <div className="my-6" />
               <p className="text-center text-sm font-semibold text-gray-400">

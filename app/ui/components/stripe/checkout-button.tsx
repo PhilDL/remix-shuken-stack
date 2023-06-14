@@ -1,18 +1,18 @@
-import type { Plan } from "@prisma/client";
+import type { Product } from "@prisma/client";
 import { useFetcher } from "@remix-run/react";
 
 import { PlanId, type Interval } from "~/services/stripe/plans.ts";
 
 type CheckoutButtonProps = {
-  currentPlanId: Plan["id"] | null;
-  planId: Plan["id"];
-  planName: Plan["name"];
+  currentPlanId: Product["id"] | null;
+  productId: Product["id"];
+  planName: Product["name"];
   planInterval: Interval | string;
 };
 
 export function CheckoutButton({
   currentPlanId,
-  planId,
+  productId,
   planName,
   planInterval,
 }: CheckoutButtonProps) {
@@ -20,7 +20,7 @@ export function CheckoutButton({
   const isLoading = fetcher.state !== "idle";
 
   const buttonClassName = () => {
-    switch (planId) {
+    switch (productId) {
       case PlanId.FREE:
         return "bg-yellow-500 hover:bg-yellow-400";
       case PlanId.STARTER:
@@ -30,12 +30,11 @@ export function CheckoutButton({
     }
   };
 
-  if (planId === currentPlanId) {
+  if (productId === currentPlanId) {
     return (
       <button
         disabled
-        className={`flex h-10 flex-row items-center justify-center rounded-xl px-6 
-				font-bold text-gray-100 transition hover:scale-105 active:brightness-90 ${buttonClassName()}`}
+        className={`flex h-10 flex-row items-center justify-center rounded-xl px-6 font-bold text-gray-100 transition hover:scale-105 active:brightness-90 ${buttonClassName()}`}
       >
         <span>Current</span>
       </button>
@@ -45,11 +44,10 @@ export function CheckoutButton({
   return (
     <fetcher.Form action="/resources/stripe/create-checkout" method="post">
       <button
-        name="plan"
-        value={JSON.stringify({ planId, planInterval })}
+        name="product"
+        value={JSON.stringify({ productId, planInterval })}
         disabled={currentPlanId !== PlanId.FREE}
-        className={`flex h-10 flex-row items-center justify-center rounded-xl px-6 
-				font-bold text-gray-100 transition hover:scale-105 active:brightness-90 ${buttonClassName()}`}
+        className={`flex h-10 flex-row items-center justify-center rounded-xl px-6 font-bold text-gray-100 transition hover:scale-105 active:brightness-90 ${buttonClassName()}`}
       >
         <span>{isLoading ? "Redirecting ..." : `Get ${planName}`}</span>
       </button>

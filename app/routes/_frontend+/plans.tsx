@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { DataFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 import { CheckIcon } from "lucide-react";
 
 import { getDefaultCurrency } from "~/utils/locales.ts";
@@ -18,12 +18,7 @@ import { CheckoutButton } from "~/ui/components/stripe/checkout-button.tsx";
 import { Switch } from "~/ui/components/switch.tsx";
 import { auth } from "~/storage/auth.server.tsx";
 import { getSubscriptionByCustomerId } from "~/models/subscription.server.ts";
-import {
-  Currency,
-  Interval,
-  PlanId,
-  PRICING_PLANS,
-} from "~/services/stripe/plans.ts";
+import { Currency, Interval, PRICING_PLANS } from "~/services/stripe/plans.ts";
 
 export async function loader({ request }: DataFunctionArgs) {
   const session = await auth.isAuthenticated(request);
@@ -89,7 +84,7 @@ export default function Plans() {
             <Card
               key={plan.id}
               className={`mx-2 flex min-w-[280px] flex-col items-center px-6 py-3 transition hover:opacity-100 ${
-                user && subscription?.planId === plan.id
+                user && subscription?.productId === plan.id
                   ? "opacity-100"
                   : "opacity-40"
               }`}
@@ -127,8 +122,8 @@ export default function Plans() {
               <CardFooter>
                 {user && (
                   <CheckoutButton
-                    currentPlanId={subscription?.planId ?? null}
-                    planId={plan.id}
+                    currentPlanId={subscription?.productId ?? null}
+                    productId={plan.id}
                     planName={plan.name}
                     planInterval={planInterval}
                   />
