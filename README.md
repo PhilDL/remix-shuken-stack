@@ -9,6 +9,8 @@
 
 ## What's in the stack
 
+This stack is heavily inspired by the [Epic Stack](https://github.com/epicweb-dev/epic-stack/commit/aa39a0b5b15ab6fa7e12294b837f13f856e9ed71).
+
 - [Fly app deployment](https://fly.io) with [Docker](https://www.docker.com/)
 - Production-ready [SQLite Database](https://sqlite.org)
 - Healthcheck endpoint for [Fly backups region fallbacks](https://fly.io/docs/reference/configuration/#services-http_checks)
