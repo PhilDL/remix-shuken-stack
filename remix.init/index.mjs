@@ -83,7 +83,7 @@ export default async function main({ isTypeScript, rootDirectory }) {
 
   execSync("pnpm run setup", { cwd: rootDirectory, stdio: "inherit" });
 
-  execSync("pnpm run format -- --loglevel warn", {
+  execSync("pnpm run format:write -- --loglevel warn", {
     cwd: rootDirectory,
     stdio: "inherit",
   });
