@@ -39,7 +39,6 @@ export async function createAdminUser(email: User["email"], password: string) {
           hash: hashedPassword,
         },
       },
-      role: "admin",
     },
   });
 }

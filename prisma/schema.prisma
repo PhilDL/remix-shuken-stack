@@ -19,8 +19,17 @@ model User {
   password Password?
   posts    Post[]
 
-  role   String  @default("staff")
-  medias Media[]
+  medias  Media[]
+  roles   Role[]
+  session Session[]
+}
+
+model Session {
+  id             String   @id @default(cuid())
+  createdAt      DateTime @default(now())
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         String
+  expirationDate DateTime
 }
 
 model Otp {
@@ -37,6 +46,7 @@ model Otp {
 model Customer {
   id               String        @id @default(cuid())
   email            String        @unique
+  phone            String?
   name             String
   note             String?
   createdAt        DateTime      @default(now())
@@ -51,6 +61,17 @@ model Customer {
   lastSeenAt       DateTime?
   subscription     Subscription?
   stripeCustomerId String?       @unique
+  submissions      Submissions[]
+  labels           Label[]
+}
+
+model Label {
+  id        String     @id @default(cuid())
+  name      String
+  color     String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  customers Customer[]
 }
 
 model Product {
@@ -58,6 +79,8 @@ model Product {
   name            String
   description     String?
   active          Boolean?         @default(true)
+  image           String?
+  type            String           @default("subscription") // "subscription" | "digital_goods"
   limits          PlanLimit?
   prices          Price[]
   subscriptions   Subscription[]
@@ -119,6 +142,27 @@ model Subscription {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Role {
+  id   String @id @unique @default(cuid())
+  name String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users       User[]
+  permissions Permission[]
+}
+
+model Permission {
+  id   String @id @unique @default(cuid())
+  name String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  roles Role[]
 }
 
 model Password {
@@ -213,4 +257,18 @@ model Settings {
   twitterTitle       String?
   twitterDescription String?
   twitterImage       String?
+}
+
+// Contact form submissions
+model Submissions {
+  id         String    @id @default(cuid())
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  email      String    @unique
+  customer   Customer? @relation(fields: [customerId], references: [id])
+  customerId String?
+  name       String?
+  phone      String?
+  note       String?
+  status     String    @default("active")
 }

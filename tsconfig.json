@@ -1,10 +1,8 @@
 {
-  "exclude": ["./prisma"],
   "include": [
     "remix.env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "chat/qa-playground.ts",
     "./tests/setup/setup-test-env.ts"
   ],
   "compilerOptions": {

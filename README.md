@@ -29,3 +29,11 @@ This stack is heavily inspired by the [Epic Stack](https://github.com/epicweb-de
 If you are interested in that template, please consider giving it a [Star ⭐](https://github.com/PhilDL/remix-shuken-stack). Thanks you!
 
 To follow progress on this template you can follow me on Twitter [@\_philDL](https://twitter.com/_philDL)
+
+## Tips
+
+### Deploy fly secrets from `.env`
+
+```sh
+cat .env | tr '\n' ' ' | xargs fly secrets set
+```

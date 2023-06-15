@@ -6,6 +6,36 @@ const prisma = new PrismaClient();
 async function seed() {
   const email = process.env.SEED_ADMIN_EMAIL || "rachel@remix.run";
 
+  const adminPermission = await prisma.permission.upsert({
+    where: {
+      name: "admin",
+    },
+    create: {
+      name: "admin",
+    },
+    update: {},
+  });
+  const adminRole = await prisma.role.upsert({
+    where: {
+      name: "admin",
+    },
+    create: {
+      name: "admin",
+      permissions: {
+        connect: {
+          id: adminPermission.id,
+        },
+      },
+    },
+    update: {
+      permissions: {
+        connect: {
+          id: adminPermission.id,
+        },
+      },
+    },
+  });
+
   // cleanup the existing database
   const user = await prisma.user.findUnique({ where: { email } }).catch(() => {
     // no worries if it doesn't exist yet
@@ -24,7 +54,7 @@ async function seed() {
             hash: hashedPassword,
           },
         },
-        role: "admin",
+        roles: { connect: { id: adminRole.id } },
       },
     });
   }

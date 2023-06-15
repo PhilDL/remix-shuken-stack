@@ -13,8 +13,8 @@ import {
   wrapDomainErrorJSON,
 } from "~/storage/flash-message.server.ts";
 import { getProductById } from "~/models/product.server.ts";
-import { ProductForm } from "../product-form.tsx";
-import { planInvariants, updatePlan } from "../update-product.server.ts";
+import { ProductForm } from "../plan-form.tsx";
+import { planInvariants, updatePlan } from "../update-plan.server.ts";
 
 export async function loader({ request, params }: LoaderArgs) {
   await auth.isAuthenticated(request, {
