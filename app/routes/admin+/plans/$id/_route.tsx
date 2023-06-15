@@ -71,7 +71,13 @@ export default function EditPlan() {
     <PageContainer>
       <PageHeader
         title={product.name}
-        subTitle="Edit product"
+        subTitle={
+          <>
+            Edit your subscription plan, change the name, description, Yearly
+            and Monthly price. <br />
+            Theses changes will be reflected in Stripe.
+          </>
+        }
         actions={
           <SaveButton
             type="submit"

@@ -72,7 +72,7 @@ export const NavTop = ({ userMenu, user }: NavTopProps) => {
     <div className="sticky top-0 z-10 flex h-16 shrink-0 bg-white dark:bg-slate-950">
       <Sheet onOpenChange={setSidebarOpen} open={sidebarOpen}>
         <SheetTrigger asChild>
-          <Button variant={"ghost"} size={"sm"} className="lg:hidden">
+          <Button variant={"ghost"} size={"sm"} className="md:hidden">
             <MenuIcon className="h-6 w-6" />
           </Button>
         </SheetTrigger>

@@ -54,7 +54,7 @@ export default function NewPlan() {
     <PageContainer>
       <PageHeader
         title="Plan"
-        subTitle="Create a new plan"
+        subTitle="Create a new Subscription plan with Monthly Or/And Yearly intervals"
         actions={
           <SaveButton
             type="submit"
