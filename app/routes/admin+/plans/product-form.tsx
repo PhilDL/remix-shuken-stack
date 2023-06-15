@@ -27,8 +27,8 @@ export type ProductFormProps = {
   description?: string;
   monthly?: boolean;
   yearly?: boolean;
-  monthlyPrice?: boolean;
-  yearlyPrice?: boolean;
+  monthlyPrice?: number;
+  yearlyPrice?: number;
   formId?: string;
   errors?: ProductFormsError;
   mediaLibrary?: React.ReactNode;
@@ -83,7 +83,7 @@ export const ProductForm = ({
             <Switch
               id="monthly"
               name="monthly"
-              checked={monthly}
+              checked={monthlyChecked}
               onCheckedChange={setMonthlyChecked}
             />
             {errors && errors.monthly && (
@@ -122,7 +122,7 @@ export const ProductForm = ({
             <Switch
               id="yearly"
               name="yearly"
-              checked={yearly}
+              checked={yearlyChecked}
               onCheckedChange={setYearlyChecked}
             />
             {errors && errors.yearly && (

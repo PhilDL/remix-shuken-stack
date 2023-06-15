@@ -41,13 +41,19 @@ import { auth } from "~/storage/admin-auth.server.ts";
 import { wrapDomainErrorJSON } from "~/storage/flash-message.server.ts";
 import { getAllProducts } from "~/models/product.server.ts";
 import type { Interval } from "~/services/stripe/plans.ts";
-import { deleteProductAction } from "../products-domain.server.ts";
+import { deleteProductAction } from "../delete-product.server.ts";
 
 export async function loader({ request }: LoaderArgs) {
   await auth.isAuthenticated(request, {
     failureRedirect: "/admin/login",
   });
-  const plans = await getAllProducts({ prices: true });
+  const plans = await getAllProducts({
+    prices: {
+      where: {
+        active: true,
+      },
+    },
+  });
   return json({ plans });
 }
 

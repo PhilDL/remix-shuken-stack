@@ -11,8 +11,8 @@ import {
   redirectWithFlashMessage,
   wrapDomainErrorJSON,
 } from "~/storage/flash-message.server.ts";
+import { createNewPlan, planInvariants } from "../create-product.server.ts";
 import { ProductForm } from "../product-form.tsx";
-import { createNewPlan, planInvariants } from "../products-domain.server.ts";
 
 export async function loader({ request }: LoaderArgs) {
   await auth.isAuthenticated(request, {
