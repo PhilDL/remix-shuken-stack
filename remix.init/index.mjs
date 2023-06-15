@@ -42,8 +42,12 @@ export default async function main({ isTypeScript, rootDirectory }) {
   const newEnv = env
     .replace(/^SESSION_SECRET=.*$/m, `SESSION_SECRET="${getRandomString(16)}"`)
     .replace(
-      /^INTERNAL_COMMAND_TOKEN=.*$/m,
-      `INTERNAL_COMMAND_TOKEN="${getRandomString(16)}"`
+      /^ADMIN_SESSION_SECRET=.*$/m,
+      `ADMIN_SESSION_SECRET="${getRandomString(16)}"`
+    )
+    .replace(
+      /^MAGIC_LINK_SECRET=.*$/m,
+      `MAGIC_LINK_SECRET="${getRandomString(16)}"`
     );
 
   const newFlyTomlContent = flyTomlContent.replace(
@@ -157,8 +161,8 @@ async function setupDeployment({ rootDirectory }) {
   await $I`fly apps create ${APP_NAME}`;
 
   console.log(`🤫 Setting secrets in apps`);
-  await $I`fly secrets set SESSION_SECRET=${getRandomString32()} INTERNAL_COMMAND_TOKEN=${getRandomString32()} --app ${APP_NAME}-staging`;
-  await $I`fly secrets set SESSION_SECRET=${getRandomString32()} INTERNAL_COMMAND_TOKEN=${getRandomString32()} --app ${APP_NAME}`;
+  await $I`fly secrets set SESSION_SECRET=${getRandomString32()} ADMIN_SESSION_SECRET=${getRandomString32()} MAGIC_LINK_SECRET=${getRandomString32()} --app ${APP_NAME}-staging`;
+  await $I`fly secrets set SESSION_SECRET=${getRandomString32()} ADMIN_SESSION_SECRET=${getRandomString32()} MAGIC_LINK_SECRET=${getRandomString32()} --app ${APP_NAME}`;
 
   console.log(
     `🔊 Creating volumes. Answer "yes" when it warns you about downtime. You can add more volumes later (when you actually start getting paying customers �).`
