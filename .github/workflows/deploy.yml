@@ -93,10 +93,6 @@ jobs:
     name: 🎭 Playwright
     runs-on: ubuntu-latest
     timeout-minutes: 60
-    env:
-      GHOST_URL: ${{ secrets.GHOST_URL }}
-      GHOST_CONTENT_API_KEY: ${{ secrets.GHOST_CONTENT_API_KEY }}
-      GHOST_ADMIN_API_KEY: ${{ secrets.GHOST_ADMIN_API_KEY }}
     steps:
       - name: Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.11.0
