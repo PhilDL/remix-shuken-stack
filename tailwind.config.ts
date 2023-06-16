@@ -1,4 +1,7 @@
+import typographyPlugin from "@tailwindcss/typography";
 import type { Config } from "tailwindcss";
+// @ts-expect-error
+import animatePlugin from "tailwindcss-animate";
 import defaultTheme from "tailwindcss/defaultTheme.js";
 
 /** @type {import('tailwindcss').Config} */
@@ -118,5 +121,5 @@ export default {
       },
     },
   },
-  plugins: [require("@tailwindcss/typography"), require("tailwindcss-animate")],
+  plugins: [typographyPlugin, animatePlugin],
 } satisfies Config;

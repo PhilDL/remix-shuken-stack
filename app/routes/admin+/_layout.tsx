@@ -21,7 +21,7 @@ import { DesktopAside } from "~/ui/components/admin/desktop-aside.tsx";
 import { NavTop } from "~/ui/components/admin/nav-top.tsx";
 import { useTheme } from "~/ui/components/theme-provider.tsx";
 import { useToast } from "~/ui/hooks/use-toast.tsx";
-import { auth } from "~/storage/admin-auth.server.ts";
+import { auth, requireUser } from "~/storage/admin-auth.server.ts";
 import {
   commitFlashMessageSession,
   getFlashMessageSession,
@@ -80,9 +80,7 @@ const userNavigation = [
 ];
 
 export async function loader({ request }: LoaderArgs) {
-  const user = await auth.isAuthenticated(request, {
-    failureRedirect: "/admin/login",
-  });
+  const user = await requireUser(request);
   const toastSession = await getFlashMessageSession(
     request.headers.get("cookie")
   );

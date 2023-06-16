@@ -224,9 +224,9 @@ export const discriminatePriceChanges = ({
     }
   }
 
-  // Price existed and was inactive
+  // Price existed and was inactive, shouldnt happens because
+  // the price are prefiltered by active: true but for safety
   if (currentPrice && !currentPrice.active && newActive) {
-    console.log("This shouldnt happen");
     return { intent: "PRICE_CREATED" };
   }
   return { intent: "NO_PRICE_CHANGE" };
