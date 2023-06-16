@@ -13,9 +13,9 @@ export async function createDefaultSiteSettings(): Promise<Settings> {
 }
 
 export async function getSiteSettings(): Promise<Settings> {
-  const settings = await prisma.settings.findFirst();
+  let settings = await prisma.settings.findFirst();
   if (!settings) {
-    throw new Error("Site settings not found");
+    settings = await createDefaultSiteSettings();
   }
   return settings;
 }
