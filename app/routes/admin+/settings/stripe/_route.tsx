@@ -1,12 +1,18 @@
 import { Suspense } from "react";
 import { defer, type LoaderArgs } from "@remix-run/node";
-import { Await, useLoaderData } from "@remix-run/react";
+import {
+  Await,
+  isRouteErrorResponse,
+  useLoaderData,
+  useRouteError,
+} from "@remix-run/react";
 
 import { StripeProduct } from "~/ui/components/admin/stripe-product.tsx";
 import { Badge } from "~/ui/components/badge.tsx";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
 } from "~/ui/components/card.tsx";
@@ -73,6 +79,61 @@ export default function SettingsStripe() {
           </Suspense>
         </CardContent>
       </Card>
+    </div>
+  );
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  // when true, this is what used to go to `CatchBoundary`
+  if (isRouteErrorResponse(error)) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>
+            {error.status === 403 ? "Unauthorized" : "Error"}
+          </CardTitle>
+          <CardDescription>{error.status}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          {error.data.requiredRole && (
+            <div>
+              You don't have permission{" "}
+              <code className="rounded-md border border-primary bg-muted px-1 text-muted-foreground">
+                {error.data.requiredRole}
+              </code>{" "}
+              to access this resource.
+            </div>
+          )}
+          <pre>{error.data.message}</pre>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  // Don't forget to typecheck with your own logic.
+  // Any value can be thrown, not just errors!
+  let errorMessage = "Unknown error";
+  if (error instanceof Error) {
+    errorMessage = error.message;
+  }
+
+  return (
+    <div className="relative overflow-hidden py-16">
+      <div className="relative px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-prose text-lg">
+          <h1>
+            <span className="block text-center text-lg font-semibold">
+              Uh oh...
+            </span>
+          </h1>
+
+          <pre className="mt-8 overflow-auto rounded-md border-2 text-sm leading-8">
+            <code>{errorMessage}</code>
+          </pre>
+        </div>
+      </div>
     </div>
   );
 }
