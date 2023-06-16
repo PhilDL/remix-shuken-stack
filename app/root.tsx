@@ -23,11 +23,13 @@ import {
 } from "~/ui/components/theme-provider.tsx";
 import { Toaster } from "~/ui/components/toaster.tsx";
 import { app } from "~/settings.ts";
+import { getEnv } from "./env.server.ts";
 import { getUser } from "./storage/session.server.ts";
 import { getThemeSession } from "./storage/theme.server.ts";
 import fontStylesheet from "./styles/fonts.css";
 import nordthemeStylesheet from "./styles/nordtheme.css";
 import tailwindStylesheetUrl from "./styles/tailwind.css";
+import { useNonce } from "./utils/nonce-provider.ts";
 
 export const links: LinksFunction = () => {
   return [
@@ -48,11 +50,13 @@ export async function loader({ request }: LoaderArgs) {
   return json({
     user: await getUser(request),
     theme: themeSession.getTheme(),
+    ENV: getEnv(),
   });
 }
 
 function App() {
   const data = useLoaderData<typeof loader>();
+  const nonce = useNonce();
   const [theme] = useTheme();
   return (
     <html lang="en" className={clsx("h-full", theme)}>
@@ -64,8 +68,14 @@ function App() {
       </head>
       <body className="h-full bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
         <Outlet />
-        <ScrollRestoration />
-        <Scripts />
+        <ScrollRestoration nonce={nonce} />
+        <Scripts nonce={nonce} />
+        <script
+          nonce={nonce}
+          dangerouslySetInnerHTML={{
+            __html: `window.ENV = ${JSON.stringify(data.ENV)}`,
+          }}
+        />
         <ClientOnly>{() => <Toaster />}</ClientOnly>
         <LiveReload />
       </body>

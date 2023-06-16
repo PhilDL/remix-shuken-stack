@@ -10,7 +10,7 @@ import {
   getSubscriptionById,
   updateSubscriptionByCustomerId,
 } from "~/models/subscription.server.ts";
-import { env } from "~/env.ts";
+import { env } from "~/env.server.ts";
 import { stripe } from "~/providers/stripe/config.server.ts";
 import { PlanId } from "~/providers/stripe/plans.ts";
 import { retrieveStripeSubscription } from "~/providers/stripe/retrieve-subscription.ts";

@@ -27,7 +27,7 @@ export default async function main({ isTypeScript, rootDirectory }) {
   const appNameRegex = escapeRegExp("remix-shuken-stack");
 
   const DIR_NAME = path.basename(rootDirectory);
-  const SUFFIX = getRandomString(2);
+  // const SUFFIX = getRandomString(2);
 
   // const APP_NAME = (DIR_NAME + "-" + SUFFIX)
   //   // get rid of anything that's not allowed in an app name

@@ -1,6 +1,6 @@
 import { createCookieSessionStorage } from "@remix-run/node";
 
-import { env } from "~/env.ts";
+import { env } from "~/env.server.ts";
 import { isTheme, Theme } from "../ui/components/theme-provider.tsx";
 
 const themeStorage = createCookieSessionStorage({

@@ -8,7 +8,7 @@ import { sessionStorage } from "~/storage/session.server.ts";
 import { getSiteSettings } from "~/models/settings.server.ts";
 import { SignInEmail } from "~/emails/sign-in-email.tsx";
 import { SignUpEmail } from "~/emails/sign-up-email.tsx";
-import { env } from "~/env.ts";
+import { env } from "~/env.server.ts";
 import { sendEmail } from "~/providers/email.server.ts";
 
 // This secret is used to encrypt the token sent in the magic link and the

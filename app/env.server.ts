@@ -26,3 +26,18 @@ export const env = createEnv({
   },
   runtimeEnv: { ...process.env, PUBLIC_NODE_ENV: process.env.NODE_ENV },
 });
+
+export function getEnv() {
+  return {
+    MODE: process.env.NODE_ENV,
+  };
+}
+
+type ENV = ReturnType<typeof getEnv>;
+
+declare global {
+  var ENV: ENV;
+  interface Window {
+    ENV: ENV;
+  }
+}

@@ -4,7 +4,7 @@ import invariant from "tiny-invariant";
 import * as z from "zod";
 
 import { checkIsRecordAuthor } from "~/models/helpers.server.ts";
-import { env } from "~/env.ts";
+import { env } from "~/env.server.ts";
 import { deleteMedia, getMedia } from "../../../models/medias.server.ts";
 
 const inputDeleteMedia = z.object({

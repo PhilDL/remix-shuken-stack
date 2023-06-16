@@ -2,7 +2,7 @@ import { makeDomainFunction } from "domain-functions";
 import * as z from "zod";
 
 import { createUser } from "~/models/user.server.ts";
-import { env } from "~/env.ts";
+import { env } from "~/env.server.ts";
 
 export const userSchema = z.object({
   email: z.string().nonempty(),

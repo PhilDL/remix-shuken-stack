@@ -98,10 +98,17 @@ ${chalk.bold("Press Ctrl+C to stop")}
     broadcastDevReady(build);
   }
 });
-closeWithGrace(async () => {
+closeWithGrace(async ({ err }) => {
+  if (err) {
+    console.error(chalk.red(err));
+    console.error(chalk.red(err.stack));
+  }
   await new Promise((resolve, reject) => {
     server.close((e) => e ? reject(e) : resolve("ok"));
   });
+  if (err) {
+    process.exit(1);
+  }
 });
 if (process.env.NODE_ENV === "development") {
   async function reloadBuild() {
@@ -113,3 +120,4 @@ if (process.env.NODE_ENV === "development") {
   const watcher = chokidar.watch(watchPath, { ignoreInitial: true });
   watcher.on("all", reloadBuild);
 }
+//# sourceMappingURL=index.js.map

@@ -1,4 +1,4 @@
-import { env } from "~/env.ts";
+import { env } from "~/env.server.ts";
 import { stripe } from "./config.server.ts";
 
 export async function createStripeCustomerPortalSession(customerId: string) {

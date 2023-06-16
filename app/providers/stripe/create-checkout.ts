@@ -1,7 +1,7 @@
 import type { Customer, Price } from "@prisma/client";
 import type { Stripe } from "stripe";
 
-import { env } from "~/env.ts";
+import { env } from "~/env.server.ts";
 import { stripe } from "~/providers/stripe/config.server.ts";
 
 export async function createStripeCheckoutSession(

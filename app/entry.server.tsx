@@ -8,7 +8,7 @@ import { renderToPipeableStream } from "react-dom/server";
 import { NonceProvider } from "./utils/nonce-provider.ts";
 
 const ABORT_DELAY = 5000;
-
+global.ENV = getEnv();
 type DocRequestArgs = Parameters<HandleDocumentRequestFunction>;
 
 export default async function handleRequest(...args: DocRequestArgs) {

@@ -6,7 +6,7 @@ import {
 } from "@remix-run/node";
 import type { ErrorResult } from "domain-functions";
 
-import { env } from "~/env.ts";
+import { env } from "~/env.server.ts";
 
 export type ToastMessage = {
   title: string;

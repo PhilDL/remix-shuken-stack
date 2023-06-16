@@ -8,7 +8,7 @@ import {
 } from "@remix-run/node";
 import cuid from "cuid";
 
-import { env } from "~/env.ts";
+import { env } from "~/env.server.ts";
 
 export const createS3UploadHandler = ({
   inputNames,

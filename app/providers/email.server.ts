@@ -1,7 +1,7 @@
 import sendgrid from "@sendgrid/mail";
 import invariant from "tiny-invariant";
 
-import { env } from "~/env.ts";
+import { env } from "~/env.server.ts";
 
 export let sendEmail = async ({
   sender,
