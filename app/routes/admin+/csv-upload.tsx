@@ -82,7 +82,7 @@ export default function CSVUpload() {
       setRecords([]);
       setHeaders([]);
     }
-  }, [newFile, headers]);
+  }, [newFile, headers.length]);
 
   return (
     <PageContainer>

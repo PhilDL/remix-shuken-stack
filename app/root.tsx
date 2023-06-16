@@ -56,7 +56,7 @@ export async function loader({ request }: LoaderArgs) {
 
 function App() {
   const data = useLoaderData<typeof loader>();
-  const nonce = useNonce();
+  // const nonce = useNonce();
   const [theme] = useTheme();
   return (
     <html lang="en" className={clsx("h-full", theme)}>
@@ -68,10 +68,9 @@ function App() {
       </head>
       <body className="h-full bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
         <Outlet />
-        <ScrollRestoration nonce={nonce} />
-        <Scripts nonce={nonce} />
+        <ScrollRestoration />
+        <Scripts />
         <script
-          nonce={nonce}
           dangerouslySetInnerHTML={{
             __html: `window.ENV = ${JSON.stringify(data.ENV)}`,
           }}
