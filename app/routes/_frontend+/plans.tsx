@@ -16,9 +16,9 @@ import {
 import { LinkButton } from "~/ui/components/link-button.tsx";
 import { CheckoutButton } from "~/ui/components/stripe/checkout-button.tsx";
 import { Switch } from "~/ui/components/switch.tsx";
-import { auth } from "~/storage/auth.server.tsx";
+import { auth } from "~/storage/public-auth.server.tsx";
 import { getSubscriptionByCustomerId } from "~/models/subscription.server.ts";
-import { Currency, Interval, PRICING_PLANS } from "~/services/stripe/plans.ts";
+import { Currency, Interval, PRICING_PLANS } from "~/providers/stripe/plans.ts";
 
 export async function loader({ request }: DataFunctionArgs) {
   const session = await auth.isAuthenticated(request);

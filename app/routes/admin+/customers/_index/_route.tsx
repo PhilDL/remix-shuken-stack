@@ -36,7 +36,7 @@ import {
   TableHeader,
   TableRow,
 } from "~/ui/components/table.tsx";
-import { auth } from "~/storage/admin-auth.server.ts";
+import { auth } from "~/storage/auth.server.ts";
 import { wrapDomainErrorJSON } from "~/storage/flash-message.server.ts";
 import { getAllCustomers } from "~/models/customer.server.ts";
 import { deleteCustomerAction } from "../customer-domain.server.ts";

@@ -6,10 +6,10 @@ import { OTPStrategy } from "remix-auth-otp";
 import { prisma } from "~/storage/db.server.ts";
 import { sessionStorage } from "~/storage/session.server.ts";
 import { getSiteSettings } from "~/models/settings.server.ts";
-import { sendEmail } from "~/services/email.server.tsx";
 import { SignInEmail } from "~/emails/sign-in-email.tsx";
 import { SignUpEmail } from "~/emails/sign-up-email.tsx";
 import { env } from "~/env.ts";
+import { sendEmail } from "~/providers/email.server.ts";
 
 // This secret is used to encrypt the token sent in the magic link and the
 // session used to validate someone else is not trying to sign-in as another

@@ -3,8 +3,8 @@ import { useLoaderData } from "@remix-run/react";
 
 import { Hero } from "~/ui/components/frontend/hero.tsx";
 import { SiteDescription } from "~/ui/components/frontend/site-description.tsx";
-import { auth } from "~/storage/auth.server.tsx";
 import { prisma } from "~/storage/db.server.ts";
+import { auth } from "~/storage/public-auth.server.tsx";
 import { getSiteSettings } from "~/models/settings.server.ts";
 
 export async function loader({ request }: LoaderArgs) {

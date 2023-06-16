@@ -1,7 +1,7 @@
 import type { Product } from "@prisma/client";
 import { useFetcher } from "@remix-run/react";
 
-import { PlanId, type Interval } from "~/services/stripe/plans.ts";
+import { PlanId, type Interval } from "~/providers/stripe/plans.ts";
 
 type CheckoutButtonProps = {
   currentPlanId: Product["id"] | null;

@@ -19,7 +19,7 @@ import {
 } from "~/ui/components/card.tsx";
 import { Input } from "~/ui/components/input.tsx";
 import { Label } from "~/ui/components/label.tsx";
-import { auth } from "~/storage/auth.server.tsx";
+import { auth } from "~/storage/public-auth.server.tsx";
 import { getSession, sessionStorage } from "~/storage/session.server.ts";
 
 export async function loader({ request }: LoaderArgs) {

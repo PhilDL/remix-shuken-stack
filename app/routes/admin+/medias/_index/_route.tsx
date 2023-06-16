@@ -25,7 +25,7 @@ import {
 } from "~/ui/components/file-input.tsx";
 import { useCopyToClipboard } from "~/ui/hooks/use-copy-to-clipboard.tsx";
 import { cn } from "~/ui/utils.ts";
-import { auth } from "~/storage/admin-auth.server.ts";
+import { auth } from "~/storage/auth.server.ts";
 import { createS3UploadHandler } from "~/storage/s3-upload-handler.server.ts";
 import { getAllMedias, saveMedia } from "~/models/medias.server.ts";
 

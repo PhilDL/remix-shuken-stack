@@ -1,12 +1,12 @@
 import type { DataFunctionArgs } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 
-import { auth } from "~/storage/auth.server.tsx";
+import { auth } from "~/storage/public-auth.server.tsx";
 import {
   getCustomerById,
   updateCustomerById,
 } from "~/models/customer.server.ts";
-import { createStripeCustomer } from "~/services/stripe/create-customer.ts";
+import { createStripeCustomer } from "~/providers/stripe/create-customer.ts";
 
 export async function loader({ request }: DataFunctionArgs) {
   const session = await auth.isAuthenticated(request, {

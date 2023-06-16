@@ -4,10 +4,10 @@ import { Form, Link, useLoaderData } from "@remix-run/react";
 
 import { formatUnixDate } from "~/utils/date.ts";
 import { CustomerPortalButton } from "~/ui/components/stripe/customer-portal-button.tsx";
-import { auth } from "~/storage/auth.server.tsx";
+import { auth } from "~/storage/public-auth.server.tsx";
 import { getCustomerById } from "~/models/customer.server.ts";
 import { getSubscriptionByCustomerId } from "~/models/subscription.server.ts";
-import { PlanId, PRICING_PLANS } from "~/services/stripe/plans.ts";
+import { PlanId, PRICING_PLANS } from "~/providers/stripe/plans.ts";
 
 type LoaderData = {
   user: Customer;

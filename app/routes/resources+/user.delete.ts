@@ -1,13 +1,13 @@
 import type { DataFunctionArgs } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 
-import { auth } from "~/storage/auth.server.tsx";
+import { auth } from "~/storage/public-auth.server.tsx";
 import { logout } from "~/storage/session.server.ts";
 import {
   deleteCustomerById,
   getCustomerById,
 } from "~/models/customer.server.ts";
-import { deleteStripeCustomer } from "~/services/stripe/delete-customer.ts";
+import { deleteStripeCustomer } from "~/providers/stripe/delete-customer.ts";
 
 export async function loader({ request }: DataFunctionArgs) {
   await auth.isAuthenticated(request, { failureRedirect: "/login" });

@@ -23,7 +23,7 @@ import {
   TableHeader,
   TableRow,
 } from "~/ui/components/table.tsx";
-import { auth } from "~/storage/admin-auth.server.ts";
+import { auth } from "~/storage/auth.server.ts";
 import { csvParserUploadHandler } from "~/storage/csv-parser-upload-handler.server.ts";
 import { getAllMedias } from "~/models/medias.server.ts";
 

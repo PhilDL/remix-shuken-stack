@@ -2,15 +2,15 @@ import type { DataFunctionArgs } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 
 import { getDefaultCurrency } from "~/utils/locales.ts";
-import { auth } from "~/storage/auth.server.tsx";
+import { auth } from "~/storage/public-auth.server.tsx";
 import { getCustomerById } from "~/models/customer.server.ts";
 import { getProductById } from "~/models/product.server.ts";
 import {
   createSubscription,
   getSubscriptionByCustomerId,
 } from "~/models/subscription.server.ts";
-import { createStripeSubscription } from "~/services/stripe/create-subscription.ts";
-import { PlanId } from "~/services/stripe/plans.ts";
+import { createStripeSubscription } from "~/providers/stripe/create-subscription.ts";
+import { PlanId } from "~/providers/stripe/plans.ts";
 
 export async function loader({ request }: DataFunctionArgs) {
   const session = await auth.isAuthenticated(request, {

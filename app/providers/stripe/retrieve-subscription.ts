@@ -1,7 +1,7 @@
 import type { Subscription } from "@prisma/client";
 import type { Stripe } from "stripe";
 
-import { stripe } from "~/services/stripe/config.server.ts";
+import { stripe } from "~/providers/stripe/config.server.ts";
 
 export async function retrieveStripeSubscription(
   id?: Subscription["id"],

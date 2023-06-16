@@ -14,7 +14,7 @@ import {
 import { Input } from "~/ui/components/input.tsx";
 import { Label } from "~/ui/components/label.tsx";
 import { SaveButton } from "~/ui/components/save-button.tsx";
-import { auth } from "~/storage/admin-auth.server.ts";
+import { auth } from "~/storage/auth.server.ts";
 import {
   addFlashMessage,
   redirectWithFlashMessage,

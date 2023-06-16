@@ -22,7 +22,7 @@ import {
   TableHeader,
   TableRow,
 } from "~/ui/components/table.tsx";
-import { auth } from "~/storage/admin-auth.server.ts";
+import { auth } from "~/storage/auth.server.ts";
 import { getAllUserPosts } from "~/models/post.server.ts";
 
 export async function loader({ request }: LoaderArgs) {

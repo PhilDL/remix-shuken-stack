@@ -11,12 +11,12 @@ import { Footer } from "~/ui/components/frontend/footer.tsx";
 import { Navbar } from "~/ui/components/frontend/navbar.tsx";
 import { ToastAction } from "~/ui/components/toast.tsx";
 import { useToast } from "~/ui/hooks/use-toast.tsx";
-import { auth } from "~/storage/auth.server.tsx";
 import {
   commitFlashMessageSession,
   getFlashMessageSession,
   type ToastMessage,
 } from "~/storage/flash-message.server.ts";
+import { auth } from "~/storage/public-auth.server.tsx";
 import { sessionStorage } from "~/storage/session.server.ts";
 import { getSiteSettings } from "~/models/settings.server.ts";
 

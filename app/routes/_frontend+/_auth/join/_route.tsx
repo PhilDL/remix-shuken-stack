@@ -24,12 +24,12 @@ import { Input } from "~/ui/components/input.tsx";
 import { Label } from "~/ui/components/label.tsx";
 import { LinkButton } from "~/ui/components/link-button.tsx";
 import { useMatchesData } from "~/ui/hooks/use-matches-data.ts";
-import { auth } from "~/storage/auth.server.tsx";
 import {
   addFlashMessage,
   commitFlashMessageSession,
   redirectWithFlashMessage,
 } from "~/storage/flash-message.server.ts";
+import { auth } from "~/storage/public-auth.server.tsx";
 import { getSession, sessionStorage } from "~/storage/session.server.ts";
 import { createMember } from "~/routes/_frontend+/_auth/create-member.server.ts";
 import type { loader as rootBlogLoader } from "~/routes/_frontend+/_layout.tsx";

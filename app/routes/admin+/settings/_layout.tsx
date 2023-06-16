@@ -1,11 +1,17 @@
 import { forwardRef } from "react";
 import { json, type LoaderArgs } from "@remix-run/node";
-import { NavLink, Outlet, type NavLinkProps } from "@remix-run/react";
+import {
+  isRouteErrorResponse,
+  NavLink,
+  Outlet,
+  useRouteError,
+  type NavLinkProps,
+} from "@remix-run/react";
 
 import { PageContainer } from "~/ui/components/admin/page-container.tsx";
 import { PageHeader } from "~/ui/components/admin/page-header.tsx";
 import { cn } from "~/ui/utils.ts";
-import { auth } from "~/storage/admin-auth.server.ts";
+import { auth } from "~/storage/auth.server.ts";
 
 export async function loader({ request }: LoaderArgs) {
   await auth.isAuthenticated(request);
@@ -45,5 +51,58 @@ export default function Settings() {
         </div>
       </main>
     </PageContainer>
+  );
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  // when true, this is what used to go to `CatchBoundary`
+  if (isRouteErrorResponse(error)) {
+    return (
+      <div className="relative overflow-hidden py-16">
+        <div className="relative px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-prose text-lg">
+            <h1>
+              <span className="block text-center text-lg font-semibold">
+                Nested Error
+              </span>
+              <span className="mt-2 block text-center text-3xl font-bold leading-8 tracking-tight sm:text-4xl">
+                {error.status}
+              </span>
+            </h1>
+
+            <pre className="mt-8 overflow-auto rounded-md border-2 text-sm leading-8">
+              <code>{error.data.message}</code>
+            </pre>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Don't forget to typecheck with your own logic.
+  // Any value can be thrown, not just errors!
+  let errorMessage = "Unknown error";
+  if (error instanceof Error) {
+    errorMessage = error.message;
+  }
+
+  return (
+    <div className="relative overflow-hidden py-16">
+      <div className="relative px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-prose text-lg">
+          <h1>
+            <span className="block text-center text-lg font-semibold">
+              Uh oh...
+            </span>
+          </h1>
+
+          <pre className="mt-8 overflow-auto rounded-md border-2 text-sm leading-8">
+            <code>{errorMessage}</code>
+          </pre>
+        </div>
+      </div>
+    </div>
   );
 }

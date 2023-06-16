@@ -1,7 +1,7 @@
 import { makeDomainFunction } from "domain-functions";
 import * as z from "zod";
 
-import { createAdminUser } from "~/models/user.server.ts";
+import { createUser } from "~/models/user.server.ts";
 import { env } from "~/env.ts";
 
 export const userSchema = z.object({
@@ -10,12 +10,12 @@ export const userSchema = z.object({
   secretkey: z.string().nonempty(),
 });
 
-export const createStaffAdminUser = makeDomainFunction(userSchema)(
+export const createAppUser = makeDomainFunction(userSchema)(
   async ({ email, password, secretkey }) => {
     if (secretkey !== env.SEED_ADMIN_PASSWORD) {
       throw new Error("Invalid secret key");
     }
-    const newUser = await createAdminUser(email, password);
+    const newUser = await createUser(email, password);
     return newUser;
   }
 );

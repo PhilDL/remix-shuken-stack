@@ -21,7 +21,7 @@ import { DesktopAside } from "~/ui/components/admin/desktop-aside.tsx";
 import { NavTop } from "~/ui/components/admin/nav-top.tsx";
 import { useTheme } from "~/ui/components/theme-provider.tsx";
 import { useToast } from "~/ui/hooks/use-toast.tsx";
-import { auth, requireUser } from "~/storage/admin-auth.server.ts";
+import { requireUser } from "~/storage/auth.server.ts";
 import {
   commitFlashMessageSession,
   getFlashMessageSession,
@@ -148,7 +148,7 @@ export function ErrorBoundary() {
           <div className="mx-auto max-w-prose text-lg">
             <h1>
               <span className="block text-center text-lg font-semibold text-cornflower-500">
-                Error
+                Coucou Error
               </span>
               <span className="mt-2 block text-center text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl">
                 {error.status}

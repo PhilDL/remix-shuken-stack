@@ -37,10 +37,10 @@ import {
   TableHeader,
   TableRow,
 } from "~/ui/components/table.tsx";
-import { auth } from "~/storage/admin-auth.server.ts";
+import { auth } from "~/storage/auth.server.ts";
 import { wrapDomainErrorJSON } from "~/storage/flash-message.server.ts";
 import { getAllProducts } from "~/models/product.server.ts";
-import type { Interval } from "~/services/stripe/plans.ts";
+import type { Interval } from "~/providers/stripe/plans.ts";
 import { deleteProductAction } from "../delete-plan.server.ts";
 
 export async function loader({ request }: LoaderArgs) {

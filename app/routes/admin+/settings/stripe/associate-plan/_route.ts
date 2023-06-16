@@ -1,9 +1,9 @@
 import type { DataFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 
-import { auth } from "~/storage/admin-auth.server.ts";
+import { auth } from "~/storage/auth.server.ts";
 import { createProduct } from "~/models/product.server.ts";
-import { stripe } from "~/services/stripe/config.server.ts";
+import { stripe } from "~/providers/stripe/config.server.ts";
 
 /**
  *

@@ -1,7 +1,7 @@
 import { redirect, type ActionArgs } from "@remix-run/node";
 import { inputFromForm } from "domain-functions";
 
-import { auth } from "~/storage/admin-auth.server.ts";
+import { auth } from "~/storage/auth.server.ts";
 import { wrapDomainErrorJSON } from "~/storage/flash-message.server.ts";
 import { deleteMediaAction } from "~/routes/admin+/medias/media.server.ts";
 

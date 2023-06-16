@@ -1,7 +1,7 @@
 import { test as base, type Page } from "@playwright/test";
 import { parse } from "cookie";
 
-import { auth } from "~/storage/admin-auth.server.ts";
+import { auth } from "~/storage/auth.server.ts";
 import { prisma } from "~/storage/db.server.ts";
 import { getPasswordHash } from "~/storage/password.server.ts";
 import { adminSessionStorage } from "~/storage/session.server.ts";

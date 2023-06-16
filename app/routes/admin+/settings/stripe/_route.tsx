@@ -12,9 +12,11 @@ import {
 } from "~/ui/components/card.tsx";
 import { Skeleton } from "~/ui/components/skeleton.tsx";
 import { getAllProducts } from "~/models/product.server.ts";
-import { getAllProductsAndPrice } from "~/services/stripe/products.server.ts";
+import { requireUserWithPermission } from "~/policies/permissions.server.ts";
+import { getAllProductsAndPrice } from "~/providers/stripe/products.server.ts";
 
 export async function loader({ request }: LoaderArgs) {
+  await requireUserWithPermission("stripe.settings.write", request);
   const products = getAllProductsAndPrice();
   const plans = await getAllProducts({ prices: true });
   return defer({ products, plans });

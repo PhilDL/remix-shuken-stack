@@ -17,16 +17,14 @@ import {
   redirectWithFlashMessage,
   wrapDomainErrorJSON,
 } from "~/storage/flash-message.server.ts";
-import { createStaffAdminUser } from "~/routes/admin_+/_auth/users.server.ts";
+import { createAppUser } from "~/routes/admin_+/_auth/users.server.ts";
 
 export async function loader({ request }: LoaderArgs) {
   return {};
 }
 
 export async function action({ request }: ActionArgs) {
-  const createUserOperation = await createStaffAdminUser(
-    await inputFromForm(request)
-  );
+  const createUserOperation = await createAppUser(await inputFromForm(request));
   if (!createUserOperation.success) {
     return wrapDomainErrorJSON(createUserOperation, request);
   }

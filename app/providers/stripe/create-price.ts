@@ -1,7 +1,7 @@
 import type { Price, Product } from "@prisma/client";
 import type { Stripe } from "stripe";
 
-import type { Interval } from "~/services/stripe/plans.ts";
+import type { Interval } from "~/providers/stripe/plans.ts";
 import { stripe } from "./config.server.ts";
 
 export async function createStripePrice(

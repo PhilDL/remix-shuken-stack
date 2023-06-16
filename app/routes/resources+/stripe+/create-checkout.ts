@@ -2,10 +2,10 @@ import type { DataFunctionArgs } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 
 import { getDefaultCurrency } from "~/utils/locales.ts";
-import { auth } from "~/storage/auth.server.tsx";
+import { auth } from "~/storage/public-auth.server.tsx";
 import { getCustomerById } from "~/models/customer.server.ts";
 import { getProductById } from "~/models/product.server.ts";
-import { createStripeCheckoutSession } from "~/services/stripe/create-checkout.ts";
+import { createStripeCheckoutSession } from "~/providers/stripe/create-checkout.ts";
 
 export async function loader({ request }: DataFunctionArgs) {
   await auth.isAuthenticated(request, { failureRedirect: "/login" });

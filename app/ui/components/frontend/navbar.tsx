@@ -42,7 +42,7 @@ import { Theme, useTheme } from "~/ui/components/theme-provider.tsx";
 import ThemeToggleIcon from "~/ui/components/theme-toggle-icon.tsx";
 import { ThemeToggle } from "~/ui/components/theme-toggle.tsx";
 import { nameInitials } from "~/ui/utils.ts";
-import type { CustomerSession } from "~/storage/auth.server.tsx";
+import type { CustomerSession } from "~/storage/public-auth.server.tsx";
 import { navigation } from "~/settings.ts";
 import { NavbarListItemMobile } from "./navbar-list-item-mobile.tsx";
 import { NavbarListItem } from "./navbar-list-item.tsx";

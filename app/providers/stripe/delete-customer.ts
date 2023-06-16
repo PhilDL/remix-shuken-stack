@@ -1,6 +1,6 @@
 import type { Customer } from "@prisma/client";
 
-import { stripe } from "~/services/stripe/config.server.ts";
+import { stripe } from "~/providers/stripe/config.server.ts";
 
 export async function deleteStripeCustomer(
   stripeCustomerId?: Customer["stripeCustomerId"]

@@ -3,7 +3,7 @@ import invariant from "tiny-invariant";
 import * as z from "zod";
 
 import { prisma } from "~/storage/db.server.ts";
-import { stripe } from "~/services/stripe/config.server.ts";
+import { stripe } from "~/providers/stripe/config.server.ts";
 
 export const priceInvariant = z.coerce
   .number()

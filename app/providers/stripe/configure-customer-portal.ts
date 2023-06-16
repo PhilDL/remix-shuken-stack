@@ -1,5 +1,5 @@
-import { stripe } from "~/services/stripe/config.server.ts";
-import type { PlanId } from "~/services/stripe/plans.ts";
+import { stripe } from "~/providers/stripe/config.server.ts";
+import type { PlanId } from "~/providers/stripe/plans.ts";
 
 type BillingPortalProducts = {
   product: PlanId;

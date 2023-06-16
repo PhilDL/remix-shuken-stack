@@ -28,11 +28,11 @@ import {
 import { Input } from "~/ui/components/input.tsx";
 import { Label } from "~/ui/components/label.tsx";
 import { LinkButton } from "~/ui/components/link-button.tsx";
-import { auth } from "~/storage/auth.server.tsx";
 import {
   addFlashMessage,
   commitFlashMessageSession,
 } from "~/storage/flash-message.server.ts";
+import { auth } from "~/storage/public-auth.server.tsx";
 import { getSession, sessionStorage } from "~/storage/session.server.ts";
 import { verifyMember } from "~/routes/_frontend+/_auth/verify-member.server.ts";
 

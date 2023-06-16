@@ -10,10 +10,10 @@ import {
   getSubscriptionById,
   updateSubscriptionByCustomerId,
 } from "~/models/subscription.server.ts";
-import { stripe } from "~/services/stripe/config.server.ts";
-import { PlanId } from "~/services/stripe/plans.ts";
-import { retrieveStripeSubscription } from "~/services/stripe/retrieve-subscription.ts";
 import { env } from "~/env.ts";
+import { stripe } from "~/providers/stripe/config.server.ts";
+import { PlanId } from "~/providers/stripe/plans.ts";
+import { retrieveStripeSubscription } from "~/providers/stripe/retrieve-subscription.ts";
 
 /**
  * Gets Stripe event signature from request header.

@@ -6,7 +6,7 @@ import invariant from "tiny-invariant";
 import { PageContainer } from "~/ui/components/admin/page-container.tsx";
 import { PageHeader } from "~/ui/components/admin/page-header.tsx";
 import { SaveButton } from "~/ui/components/save-button.tsx";
-import { auth } from "~/storage/admin-auth.server.ts";
+import { auth } from "~/storage/auth.server.ts";
 import {
   addFlashMessage,
   redirectWithFlashMessage,

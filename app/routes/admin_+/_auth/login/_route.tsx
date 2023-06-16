@@ -14,7 +14,7 @@ import { Button } from "~/ui/components/button.tsx";
 import { Input } from "~/ui/components/input.tsx";
 import { Label } from "~/ui/components/label.tsx";
 import { useTheme } from "~/ui/components/theme-provider.tsx";
-import { auth } from "~/storage/admin-auth.server.ts";
+import { auth } from "~/storage/auth.server.ts";
 import { getAdminSession } from "~/storage/session.server.ts";
 
 export async function loader({ request }: LoaderArgs) {

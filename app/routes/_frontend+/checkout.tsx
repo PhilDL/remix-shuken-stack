@@ -13,9 +13,9 @@ import {
 } from "~/ui/components/card.tsx";
 import { LinkButton } from "~/ui/components/link-button.tsx";
 import { useInterval } from "~/ui/hooks/use-interval.tsx";
-import { auth } from "~/storage/auth.server.tsx";
+import { auth } from "~/storage/public-auth.server.tsx";
 import { getSubscriptionByCustomerId } from "~/models/subscription.server.ts";
-import { PlanId } from "~/services/stripe/plans.ts";
+import { PlanId } from "~/providers/stripe/plans.ts";
 
 export async function loader({ request }: LoaderArgs) {
   const user = await auth.isAuthenticated(request, {

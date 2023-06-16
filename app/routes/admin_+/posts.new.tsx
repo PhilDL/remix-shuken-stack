@@ -35,7 +35,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "~/ui/components/sheet.tsx";
-import { auth } from "~/storage/admin-auth.server.ts";
+import { auth } from "~/storage/auth.server.ts";
 import { createPost } from "~/models/post.server.ts";
 
 export async function loader({ request }: LoaderArgs) {
